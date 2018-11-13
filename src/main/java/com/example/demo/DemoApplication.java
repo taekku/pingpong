@@ -2,26 +2,33 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(DemoApplication.class);
 	}
-
+	public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+        System.out.println("OK Start Now");
+    }
+    
+    
     // @Bean
-    // public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-    //     return args -> {
+    // public ViewResolver getViewResolver(){
+    //     // InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    //     // resolver.setPrefix("/resources/templates/");
+    //     // resolver.setSuffix(".jsp");
+    //     // resolver.setViewClass(JstlView.class);
+    //     // return resolver;
+    //     InternalResourceViewResolver irv = new InternalResourceViewResolver();
+    //     irv.setPrefix("/webapps/WEB-INF/views/");
+    //     irv.setSuffix(".jsp");
+    //     return irv;
 
-    //         System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-    //         String[] beanNames = ctx.getBeanDefinitionNames();
-    //         Arrays.sort(beanNames);
-    //         for (String beanName : beanNames) {
-    //             System.out.println(beanName);
-    //         }
-
-    //     };
     // }
 }
