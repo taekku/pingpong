@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HelloController {
@@ -17,12 +17,16 @@ public class HelloController {
     public String index(Map<String, Object> model) {
         model.put("time", new Date());
         model.put("message", "asdf My Message asdf");
-        return "hello";
+        return "index";
     }
-    @RequestMapping("/pingpong")
-    public String hello(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-
-        return "hello";
-    }
+    @RequestMapping(value="/test", method = RequestMethod.GET)
+    public ModelAndView hello(
+                        // @RequestParam("sayit")
+                        // String sayit
+                        ) {
+		ModelAndView retVal = new ModelAndView();
+		retVal.setViewName("hello");
+		// retVal.addObject("mymessage", sayit);
+		return retVal;
+	}
 }
