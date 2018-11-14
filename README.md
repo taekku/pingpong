@@ -1,7 +1,8 @@
-# pingpong
-Project Pingpong
+# Project Pingpong
 
-The Pingpong is a framework for a web application.
+The Project Pingpong is a framework that develope a web application.
+
+
 
 Use
   - SpringBoot
