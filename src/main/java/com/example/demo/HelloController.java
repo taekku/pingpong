@@ -19,14 +19,14 @@ public class HelloController {
         model.put("message", "asdf My Message asdf");
         return "index";
     }
-    @RequestMapping(value="/test", method = RequestMethod.GET)
+    @RequestMapping(value="/ping", method = RequestMethod.GET)
     public ModelAndView hello(
                         // @RequestParam("sayit")
                         // String sayit
                         ) {
 		ModelAndView retVal = new ModelAndView();
 		retVal.setViewName("hello");
-		// retVal.addObject("mymessage", sayit);
+		retVal.addObject("message", "Hello my boys!");
 		return retVal;
 	}
 }
