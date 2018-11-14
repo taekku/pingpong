@@ -16,19 +16,5 @@ public class DemoApplication extends SpringBootServletInitializer {
         SpringApplication.run(DemoApplication.class, args);
         System.out.println("OK Start Now");
     }
-    
-    
-    // @Bean
-    // public ViewResolver getViewResolver(){
-    //     // InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-    //     // resolver.setPrefix("/resources/templates/");
-    //     // resolver.setSuffix(".jsp");
-    //     // resolver.setViewClass(JstlView.class);
-    //     // return resolver;
-    //     InternalResourceViewResolver irv = new InternalResourceViewResolver();
-    //     irv.setPrefix("/webapps/WEB-INF/views/");
-    //     irv.setSuffix(".jsp");
-    //     return irv;
 
-    // }
 }
