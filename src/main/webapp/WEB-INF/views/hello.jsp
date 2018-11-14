@@ -1,3 +1,1 @@
 Hello Jsp
-<%= "asdf" %>
-${ message }
