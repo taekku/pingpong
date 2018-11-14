@@ -1,4 +1,4 @@
-package com.example.demo;
+package pingpong.web.controller;
 
 
 import java.util.Date;
