@@ -35,5 +35,9 @@ public class HelloController {
         // model.put("message", "asdf My Message asdf");
         return "hello";
     }
-	
+  
+    @GetMapping("/asdf")
+    public String asdf(){
+      return "asdf";
+    }
 }
