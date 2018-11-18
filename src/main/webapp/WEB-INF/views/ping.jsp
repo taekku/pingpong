@@ -10,13 +10,13 @@
   $(document).ready(function(){
     $("#btnSave").click(function(){
       $("#mySave").text($("#mycontents").val());
-      let myData = [{
+      let myData = {
         data: "Hi Data",
-        Hello: "Good Morning",
-        "myData" : $("#mycontents").val()
-      }];
+        Hello: ["Good Morning","Good Afternoon"],
+        "myData" : [$("#mycontents").val()]
+      };
       let myAjax = $.ajax({
-        url: "/myHello2",
+        url: "/myHello3",
         type: "POST",
         data: JSON.stringify(myData),
         success: function (data) {

@@ -27,6 +27,19 @@ public class MyController {
     System.out.println("myHello2 Output:" + map.toString());
     return map;
   }
+  @RequestMapping(value="/myHello3")
+  public Map<String, Object> myHello3(
+    //@RequestBody String jsonData
+    //, 
+    @RequestBody Map<String, Object> params
+  ){
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("Hello3", "myHello3");
+    //map.put("yourHello", jsonData);
+    map.put("yourHello", params);
+    System.out.println("myHello3 Output:" + map.toString());
+    return map;
+  }
   @RequestMapping(value="/myHello"
     , consumes={ "text/plain","application/*" }
     )
