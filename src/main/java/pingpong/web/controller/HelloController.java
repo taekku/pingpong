@@ -2,6 +2,7 @@ package pingpong.web.controller;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -36,8 +37,20 @@ public class HelloController {
         return "hello";
     }
   
-    @GetMapping("/asdf")
-    public String asdf(){
-      return "asdf";
+    @RequestMapping(value="/asdf"
+        //, consumes=MediaType.APPLICATION_JSON_VALUE
+        , consumes={ "text/plain","application/*" }
+      )
+    public Map<String, String> myHello(
+       // @RequestParam(value="myData") String myData
+        // @RequestBody MyData myData
+      ) {
+      HashMap<String, String> map = new HashMap<String, String>();
+      map.put("col1", "data1");
+      map.put("col2", "data2");
+      map.put("col3", "data3");
+      //map.put("yourData", paramMap.toString());
+      System.out.println("Your Output:" + map.toString());
+      return map;
     }
 }
