@@ -1,5 +1,8 @@
 package pingpong.web.controller;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import pingpong.util.file.FileUtil;
 
 @RestController
 public class MyController {
@@ -37,9 +42,18 @@ public class MyController {
     map.put("Hello3", "myHello3");
     //map.put("yourHello", jsonData);
     map.put("yourHello", params);
+    try {
+      File file = FileUtil.makeFile("dist/test.json");
+      FileWriter fw = new FileWriter(file);
+      fw.write(params.toString());
+      fw.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+	  }
     System.out.println("myHello3 Output:" + map.toString());
     return map;
   }
+
   @RequestMapping(value="/myHello"
     , consumes={ "text/plain","application/*" }
     )
