@@ -1,11 +1,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 	<c:url value="/assets/css/index.css" var="jstlCss" />
   <link href="${jstlCss}" rel="stylesheet" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/assets/js/ping_message.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){
@@ -47,12 +48,12 @@
 <body>
    <p>What did you say?</p>
    <p>I said: <span class="text-underline">"${mymessage}."</span></p>
-   <script type="text/javascript" src="/assets/js/test.js">
-   </script>
+   <script type="text/javascript" src="/assets/js/test.js" />
    <form id="myForm1" action="/myHello" method="POST" onsubmit="return false;">
       <textarea id="mycontents" name="mycontents" style="width: 100%" rows="20"></textarea>
       <button id="btnSave">myContents</button>
       <div id="mySave"></div>
    </form>
+   Good!
 </body>
 </html>

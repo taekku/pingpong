@@ -8,10 +8,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 import pingpong.web.property.FileStorageProperties;
+import pingpong.web.property.PingpongProperties;
 
 @SpringBootApplication
 @ComponentScan (basePackages = PingpongApplication.PINGPONG_WEB)
-@EnableConfigurationProperties({ FileStorageProperties.class })
+@EnableConfigurationProperties({ FileStorageProperties.class, PingpongProperties.class })
 public class PingpongApplication extends SpringBootServletInitializer {
 
 	/**
