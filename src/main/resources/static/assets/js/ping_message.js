@@ -14,8 +14,18 @@
  *   1.1. 또는 Hash Value체크
  */
 var PMessage = (function () {
-	var ssn = '';
-	var ssn1, ssn2;
-    
+	var mData;
+	function PMessage(){
+		
+	}
+    var getData = function(){
+		return mData;
+	};
+	var ping = function(){
+		return ;
+	};
+	var pong = function(){
+
+	};
     return PMessage;
 }());
