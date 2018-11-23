@@ -28,14 +28,14 @@ var CtzNo = (function () {
             message = '주민등록번호를 기입해주세요.';
             return false;
         }
-        
+
         if( ssn2 == undefined || ssn2 == ''){
             message = '주민등록번호를 기입해주세요.';
             return false;
-        }   
+        }
         
         // 입력값 체크
-        if( ssn1.match('[^0-9]')) { 
+        if( ssn1.match('[^0-9]')) {
             message = "주민등록번호는 숫자만 입력하셔야 합니다.";
             return false;
         }
