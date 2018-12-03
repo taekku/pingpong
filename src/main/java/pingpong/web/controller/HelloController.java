@@ -17,7 +17,7 @@ public class HelloController {
     @GetMapping("/")
     public String index(Map<String, Object> model) {
         model.put("time", new Date());
-        model.put("message", "asdf My Message asdf");
+        model.put("message", "My Message!");
         return "index";
     }
     @RequestMapping(value="/ping", method = RequestMethod.GET)

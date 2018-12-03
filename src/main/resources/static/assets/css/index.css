@@ -1,3 +1,8 @@
 body{
     font-size: 1.1rem
 }
+
+iframe {
+  border : solid;
+  border-width : 0px;
+}

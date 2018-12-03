@@ -27,5 +27,9 @@ var PMessage = (function () {
 	var pong = function(){
 
 	};
+	var myString = function(){
+		return "my Message";
+	}
+	PMessage.prototype.myString = myString;
     return PMessage;
 }());

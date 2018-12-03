@@ -7,6 +7,7 @@
   <link href="${jstlCss}" rel="stylesheet" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/assets/js/ping_message.js"></script>
+  <script type="text/javascript" src="/assets/js/ping_action.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){
@@ -42,18 +43,28 @@
         // console.log(data);
       });
     });
+    $("#btnTest").click(function(evt){
+      findField($("#myForm1"));
+    });
   });
   </script>
 </head>
 <body>
    <p>What did you say?</p>
    <p>I said: <span class="text-underline">"${mymessage}."</span></p>
-   <script type="text/javascript" src="/assets/js/test.js" />
-   <form id="myForm1" action="/myHello" method="POST" onsubmit="return false;">
+   <script type="text/javascript" src="/assets/js/test.js">
+   </script>
+   <form id="myForm1" name="myForm1" action="/myHello" method="POST" onsubmit="return false;">
       <textarea id="mycontents" name="mycontents" style="width: 100%" rows="20"></textarea>
-      <button id="btnSave">myContents</button>
+      <input id="input1" name="input1">
+      <input id="input2" name="input2" type="email">
+      <input id="input3" name="input3" type="color">
+      <button id="btnSave" name="btnSave">myContents</button>
+      <button id="btnTest" name="btnTest">myTest</button>
       <div id="mySave"></div>
+
+      ${ message }
    </form>
-   Good!
+   <a href="/">Home</a>
 </body>
 </html>
