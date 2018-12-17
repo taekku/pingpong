@@ -16,6 +16,9 @@ module.exports = {
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ]
   },
+  externals:[
+    Ping
+  ],
   output: {
     filename: 'ping_bundle.js',
     path: path.resolve(__dirname, '../resources/static/assets/js')
