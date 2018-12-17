@@ -18,6 +18,6 @@ module.exports = {
   },
   output: {
     filename: 'ping_bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, '../resources/static/assets/js')
   }
 };

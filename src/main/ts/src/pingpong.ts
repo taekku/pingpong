@@ -1,5 +1,8 @@
 import { Page } from "./ping/action/page";
-class Ping{
+export default class Ping{
+  constructor(){
+    console.log("asdf Ping:");
+  }
   public getPing() : string{
     let page:Page.Page = new Page.Page();
 
@@ -7,4 +10,11 @@ class Ping{
     return page.getServcieId();
   }
 }
-export = Ping;
+export class MyClass{
+  constructor(){
+    console.log("constructor myclass");
+  }
+}
+let myClass = new MyClass();
+console.log("typescript pingpong:");
+
