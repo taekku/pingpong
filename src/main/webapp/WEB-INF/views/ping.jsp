@@ -48,7 +48,8 @@
       findField($("#myForm1"));
     });
   });
-  
+let ping = new pings.Ping();
+console.log("Service Id : " + ping.getPing());
 
   </script>
 </head>

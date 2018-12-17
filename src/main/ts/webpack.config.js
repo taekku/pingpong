@@ -16,11 +16,10 @@ module.exports = {
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ]
   },
-  externals:[
-    Ping
-  ],
   output: {
     filename: 'ping_bundle.js',
+    library: 'pings',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, '../resources/static/assets/js')
   }
 };

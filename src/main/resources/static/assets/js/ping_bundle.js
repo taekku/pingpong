@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["pings"] = factory();
+	else
+		root["pings"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -94,25 +104,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var page_1 = __webpack_require__(1);
 var Ping = /** @class */ (function () {
     function Ping() {
-        console.log("asdf Ping:");
     }
     Ping.prototype.getPing = function () {
-        var page = new page_1.Page.Page();
-        // return "asdf";
+        var page = new page_1.Page();
         return page.getServcieId();
     };
     return Ping;
 }());
-exports.default = Ping;
-var MyClass = /** @class */ (function () {
-    function MyClass() {
-        console.log("constructor myclass");
-    }
-    return MyClass;
-}());
-exports.MyClass = MyClass;
-var myClass = new MyClass();
-console.log("typescript pingpong:");
+exports.Ping = Ping;
 
 
 /***/ }),
@@ -122,22 +121,20 @@ console.log("typescript pingpong:");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Page;
-(function (Page_1) {
-    var Page = /** @class */ (function () {
-        function Page() {
-            this.serviceId = "kk";
-            this.serviceId = "Good";
-        }
-        Page.prototype.getServcieId = function () {
-            return this.serviceId;
-        };
-        return Page;
-    }());
-    Page_1.Page = Page;
-})(Page = exports.Page || (exports.Page = {}));
+var Page = /** @class */ (function () {
+    function Page() {
+        this.serviceId = "kk";
+        this.serviceId = "Good";
+    }
+    Page.prototype.getServcieId = function () {
+        return this.serviceId;
+    };
+    return Page;
+}());
+exports.Page = Page;
 ;
 
 
 /***/ })
 /******/ ]);
+});
