@@ -3,7 +3,7 @@ import { RequestKind } from "./RequestKind";
 
 class Service{
   private sId : string = "default";
-  private rType: RequestKind; // request kind
+  //private rType: RequestKind; // request kind
   private data: Ping[];
   constructor(sid: string){
     this.sId = sid;
