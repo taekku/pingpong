@@ -3,11 +3,11 @@ import { RequestKind } from "./RequestKind";
 
 class Service{
   private sId : string = "default";
-  private ping: Ping;
-  private data: any;
+  private rType: RequestKind; // request kind
+  private data: Ping[];
   constructor(sid: string){
     this.sId = sid;
-    this.ping = new Ping(sid, RequestKind.Query);
+    this.data = [];
   }
   public getServiceId() : string{
     return this.sId;

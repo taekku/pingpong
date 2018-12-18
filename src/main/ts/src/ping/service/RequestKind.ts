@@ -1,7 +1,6 @@
 export enum RequestKind {
     Query,
-    Insert,
+    New,
     Update,
-    Delete,
-    None
+    Delete
 }
