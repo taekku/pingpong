@@ -1,5 +1,5 @@
 import { Page } from "./ping/action/page";
-export default class Ping{
+export default class PingTest{
   constructor(){
     console.log("asdf Ping:");
   }
