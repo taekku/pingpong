@@ -2,26 +2,33 @@ import { RequestKind } from "./RequestKind";
 import { Status } from "./Status";
 
 export class Ping {
-    private mId: string; // public ID
-    private len: number;
+    private _id: string; // public ID
+    private _size: number;
     private status: Status[];
     private data: any[];
     constructor(mId:string){
-        this.mId = mId;
-        this.len = 0;
+        this._id = mId;
+        this._size = 0;
         this.status = [];
         this.data = [];
     }
-    get length():number{
-      return this.len;
+    public get id(){
+        return this._id;
     }
-    set length(len:number){
-        this.len = len;
-        this.status.length = len;
-        this.data.length = len;
+    public set id(v: string){
+        this._id = v;
+    }
+    
+    get size():number{
+      return this._size;
+    }
+    set size(sz:number){
+        this.size = sz;
+        this.status.length = this.size;
+        this.data.length = this.size;
     }
     public getVal(idx:number=0,name:string):any{
-        if( this.length > 0 ){
+        if( this.size > 0 ){
             return this.data[idx][name];
         } else {
             return null;
@@ -32,5 +39,16 @@ export class Ping {
     }
     public setVal(idx:number=0, name:string, v:any){
         this.data[idx][name] = v;
+    }
+    /**
+     * 조건에 만족시키는 DATA를 리턴
+     * @param filters : condition object
+     *                  let filters = {
+     *                                name: ["Krishna", "Naveen"],
+     *                                city : ["London"]
+     *                               };
+     */
+    public filterData(filters:any): any[]{        
+        return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
     }
 }
