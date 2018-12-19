@@ -1,5 +1,5 @@
 import { Page } from "./pings/action/page";
-export class Ping{
+export default class PingTest{
   constructor(){
   }
   public getPing() : string{
