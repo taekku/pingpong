@@ -1,10 +1,11 @@
 import { Page } from "./pings/action/page";
-export default class PingTest{
+import { Ping } from "./pings/service/Ping";
+export class PingTest{
   constructor(){
   }
-  public getPing() : string{
-    let page:Page = new Page();
-    return page.getServcieId();
+  public getPing() : Ping{
+    const ping = new Ping("Test");
+    return ping;
   }
 }
 

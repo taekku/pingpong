@@ -101,17 +101,17 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var page_1 = __webpack_require__(1);
-var Ping = /** @class */ (function () {
-    function Ping() {
+var Ping_1 = __webpack_require__(1);
+var PingTest = /** @class */ (function () {
+    function PingTest() {
     }
-    Ping.prototype.getPing = function () {
-        var page = new page_1.Page();
-        return page.getServcieId();
+    PingTest.prototype.getPing = function () {
+        var ping = new Ping_1.Ping("Test");
+        return ping;
     };
-    return Ping;
+    return PingTest;
 }());
-exports.Ping = Ping;
+exports.PingTest = PingTest;
 
 
 /***/ }),
@@ -121,18 +121,65 @@ exports.Ping = Ping;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Page = /** @class */ (function () {
-    function Page() {
-        this.serviceId = "kk";
-        this.serviceId = "Good";
+var Ping = /** @class */ (function () {
+    function Ping(mId) {
+        this._id = mId;
+        this._size = 0;
+        this.status = [];
+        this.data = [];
     }
-    Page.prototype.getServcieId = function () {
-        return this.serviceId;
+    Object.defineProperty(Ping.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        set: function (v) {
+            this._id = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Ping.prototype, "size", {
+        get: function () {
+            return this._size;
+        },
+        set: function (sz) {
+            this.size = sz;
+            this.status.length = this.size;
+            this.data.length = this.size;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Ping.prototype.getVal = function (idx, name) {
+        if (idx === void 0) { idx = 0; }
+        if (this.size > 0) {
+            return this.data[idx][name];
+        }
+        else {
+            return null;
+        }
     };
-    return Page;
+    Ping.prototype.setAll = function (name, v) {
+        this.data.forEach(function (obj) { obj[name] = v; });
+    };
+    Ping.prototype.setVal = function (idx, name, v) {
+        if (idx === void 0) { idx = 0; }
+        this.data[idx][name] = v;
+    };
+    /**
+     * 조건에 만족시키는 DATA를 리턴
+     * @param filters : condition object
+     *                  let filters = {
+     *                                name: ["Krishna", "Naveen"],
+     *                                city : ["London"]
+     *                               };
+     */
+    Ping.prototype.filterData = function (filters) {
+        return this.data.filter(function (o) { return Object.keys(filters).every(function (k) { return [].concat(filters[k]).some(function (v) { return o[k].includes(v); }); }); });
+    };
+    return Ping;
 }());
-exports.Page = Page;
-;
+exports.Ping = Ping;
 
 
 /***/ })

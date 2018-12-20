@@ -22,10 +22,10 @@ export class Ping {
     get size():number{
       return this._size;
     }
-    set size(sz:number){
-        this.size = sz;
-        this.status.length = this.size;
-        this.data.length = this.size;
+    private setSize(sz:number){
+        this._size = sz;
+        this.status.length = sz;
+        this.data.length = sz;
     }
     public getVal(idx:number=0,name:string):any{
         if( this.size > 0 ){
@@ -49,6 +49,11 @@ export class Ping {
      *                               };
      */
     public filterData(filters:any): any[]{        
-        return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
+        // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
+        return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k] === v)));
+    }
+    public push(data:any){
+        this.data[this.size] = data;
+        this.setSize(this.size + 1);
     }
 }
