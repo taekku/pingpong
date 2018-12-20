@@ -12,7 +12,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.119",
     "grunt-webpack": "^3.1.3",
-    "jasmine": "^3.3.1",
     "ts-loader": "^5.3.1",
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
