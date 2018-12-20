@@ -4,18 +4,16 @@
   "description": "Pingpong's Library",
   "main": "pingpong.js",
   "scripts": {
-    "test": "mocha --require ts-node/register src/**/*.spec.ts",
-    "build": "webpack"
+    "test":  "node_modules/.bin/jasmine-ts",
+    "build": "node_modules/.bin/webpack"
   },
   "author": "Taekgu Lim",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/lodash": "^4.14.119",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.2.0",
-    "grunt-webpack": "^3.1.3",
-    "mocha": "^5.2.0",
+    "@types/jasmine": "^3.3.4",
+    "jasmine": "^3.3.1",
+    "jasmine-ts": "^0.3.0",
+    "jest": "^23.6.0",
     "ts-loader": "^5.3.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2",

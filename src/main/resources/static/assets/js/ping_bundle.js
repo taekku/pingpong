@@ -142,14 +142,14 @@ var Ping = /** @class */ (function () {
         get: function () {
             return this._size;
         },
-        set: function (sz) {
-            this.size = sz;
-            this.status.length = this.size;
-            this.data.length = this.size;
-        },
         enumerable: true,
         configurable: true
     });
+    Ping.prototype.setSize = function (sz) {
+        this._size = sz;
+        this.status.length = sz;
+        this.data.length = sz;
+    };
     Ping.prototype.getVal = function (idx, name) {
         if (idx === void 0) { idx = 0; }
         if (this.size > 0) {
@@ -175,7 +175,12 @@ var Ping = /** @class */ (function () {
      *                               };
      */
     Ping.prototype.filterData = function (filters) {
-        return this.data.filter(function (o) { return Object.keys(filters).every(function (k) { return [].concat(filters[k]).some(function (v) { return o[k].includes(v); }); }); });
+        // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
+        return this.data.filter(function (o) { return Object.keys(filters).every(function (k) { return [].concat(filters[k]).some(function (v) { return o[k] === v; }); }); });
+    };
+    Ping.prototype.push = function (data) {
+        this.data[this.size] = data;
+        this.setSize(this.size + 1);
     };
     return Ping;
 }());
