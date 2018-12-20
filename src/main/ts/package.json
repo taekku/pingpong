@@ -4,7 +4,7 @@
   "description": "pingpong ts",
   "main": "pingpong.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "build": "webpack"
   },
   "author": "Taekgu Lim",
@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.119",
     "grunt-webpack": "^3.1.3",
+    "jasmine": "^3.3.1",
     "ts-loader": "^5.3.1",
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
