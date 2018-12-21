@@ -48,9 +48,12 @@ export class Ping {
      *                                city : ["London"]
      *                               };
      */
-    public filterData(filters:any): any[]{        
+    private filterData(filters:any): any[]{        
         // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
         return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k] === v)));
+    }
+    public getData(filters:any): any[]{        
+        return JSON.parse(JSON.stringify(this.filterData(filters)));
     }
     public push(data:any){
         this.data[this.size] = data;

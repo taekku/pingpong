@@ -19,23 +19,23 @@ describe("Ping", ()=>{
         ping.push({Job:'Engineer', name:'My Name', Age:44});
         expect(ping.size).toBe(1);
     });
-    it("filterData", ()=>{
+    it("getData", ()=>{
         const name_id = "kkk";
         const ping:Ping = new Ping(name_id);
         ping.push({Job:'Engineer', name:'My Name', Age:44});
         ping.push({Job:'Engineer', name:'My Name2', Age:45});
         ping.push({Job:'Engineer', name:'My Name3', Age:55});
         
-        let data:any[] = ping.filterData({name:'My Name'});
+        let data:any[] = ping.getData({name:'My Name'});
         expect(data.length).toEqual(1);
-        data = ping.filterData({Job:'ant1', name:'My Name'});
+        data = ping.getData({Job:'ant1', name:'My Name'});
         expect(data.length).toBe(0);
-        data = ping.filterData({Age:45});
+        data = ping.getData({Age:45});
         expect(data.length).toBe(1);
         data[0]["Job"] = "Doctor";
-        data = ping.filterData({Job:'Doctor'});
-        expect(data.length).toBe(1);
-        data = ping.filterData({Job:'Engineer'});
-        expect(data.length).toBe(2);
+        data = ping.getData({Job:'Doctor'});
+        expect(data.length).toBe(0);
+        data = ping.getData({Job:'Engineer'});
+        expect(data.length).toBe(3);
     });
 });
