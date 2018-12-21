@@ -42,6 +42,7 @@ export class Ping {
     }
     /**
      * 조건에 만족시키는 DATA를 리턴
+     * private로 전환시킴 2018.12.21
      * @param filters : condition object
      *                  let filters = {
      *                                name: ["Krishna", "Naveen"],
@@ -52,6 +53,10 @@ export class Ping {
         // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
         return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k] === v)));
     }
+    /**
+     * Deep Clone
+     * @param filters 
+     */
     public getData(filters:any): any[]{        
         return JSON.parse(JSON.stringify(this.filterData(filters)));
     }
