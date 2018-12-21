@@ -26,6 +26,7 @@ export class Ping {
     }
     /**
      * 데이터크기 조절
+     * TODO 어떻게 해야 할지?
      * @param sz 
      */
     private setSize(sz:number){
@@ -33,6 +34,11 @@ export class Ping {
         this.status.length = sz;
         this._data.length = sz;
     }
+    /**
+     * get value
+     * @param idx data row
+     * @param name data property
+     */
     public getVal(idx:number=0,name:string):any{
         if( this.size > 0 ){
             return this._data[idx][name];
@@ -41,15 +47,21 @@ export class Ping {
         }
     }
     /**
+     * set value
+     * @param idx 
+     * @param name 
+     * @param v 
+     */
+    public setVal(idx:number=0, name:string, v:any){
+        this._data[idx][name] = v;
+    }
+    /**
      * set value to all records
      * @param name record property name
      * @param v property value of row
      */
     public setAll(name:string, v:any){
         this._data.forEach(function(obj){obj[name] = v;});
-    }
-    public setVal(idx:number=0, name:string, v:any){
-        this._data[idx][name] = v;
     }
     /**
      * 조건에 만족시키는 DATA를 리턴
