@@ -18,10 +18,16 @@ export class Ping {
     public set id(v: string){
         this._id = v;
     }
-    
+    /**
+     * 가지고있는 Data의 갯수
+     */
     get size():number{
       return this._size;
     }
+    /**
+     * 데이터크기 조절
+     * @param sz 
+     */
     private setSize(sz:number){
         this._size = sz;
         this.status.length = sz;
