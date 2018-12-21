@@ -5,12 +5,12 @@ export class Ping {
     private _id: string; // public ID
     private _size: number;
     private status: Status[];
-    private data: any[];
+    private _data: any[];
     constructor(mId:string){
         this._id = mId;
         this._size = 0;
         this.status = [];
-        this.data = [];
+        this._data = [];
     }
     public get id(){
         return this._id;
@@ -25,20 +25,20 @@ export class Ping {
     private setSize(sz:number){
         this._size = sz;
         this.status.length = sz;
-        this.data.length = sz;
+        this._data.length = sz;
     }
     public getVal(idx:number=0,name:string):any{
         if( this.size > 0 ){
-            return this.data[idx][name];
+            return this._data[idx][name];
         } else {
             return null;
         }
     }
     public setAll(name:string, v:any){
-        this.data.forEach(function(obj){obj[name] = v;});
+        this._data.forEach(function(obj){obj[name] = v;});
     }
     public setVal(idx:number=0, name:string, v:any){
-        this.data[idx][name] = v;
+        this._data[idx][name] = v;
     }
     /**
      * 조건에 만족시키는 DATA를 리턴
@@ -51,7 +51,7 @@ export class Ping {
      */
     private filterData(filters:any): any[]{        
         // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
-        return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k] === v)));
+        return this._data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k] === v)));
     }
     /**
      * Deep Clone
@@ -60,8 +60,12 @@ export class Ping {
     public getData(filters:any): any[]{        
         return JSON.parse(JSON.stringify(this.filterData(filters)));
     }
-    public push(data:any){
-        this.data[this.size] = data;
+    /**
+     * accept to the New Data
+     * @param record row data
+     */
+    public push(record:any){
+        this._data[this.size] = record;
         this.setSize(this.size + 1);
     }
 }
