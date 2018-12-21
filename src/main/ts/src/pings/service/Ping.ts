@@ -1,6 +1,10 @@
 import { RequestKind } from "./RequestKind";
 import { Status } from "./Status";
 
+/**
+ * Class Ping
+ * Client Side request parameter
+ */
 export class Ping {
     private _id: string; // public ID
     private _size: number;
