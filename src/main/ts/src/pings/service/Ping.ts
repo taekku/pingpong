@@ -34,6 +34,11 @@ export class Ping {
             return null;
         }
     }
+    /**
+     * set value to all records
+     * @param name record property name
+     * @param v property value of row
+     */
     public setAll(name:string, v:any){
         this.data.forEach(function(obj){obj[name] = v;});
     }
