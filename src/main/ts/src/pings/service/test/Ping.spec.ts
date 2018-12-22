@@ -3,24 +3,25 @@ import 'jasmine';
 import { Ping } from '../Ping';
 
 describe("Ping", ()=>{
+    const name_id = "kkk";
+    beforeAll(()=>{
+    });
+    afterAll(()=>{
+    });
     it("id", ()=>{
-        const name_id = "kkk";
         const ping:Ping = new Ping(name_id);
         expect(ping.id).toEqual(name_id);
     });
     it("size",()=>{
-        const name_id = "kkk";
         const ping:Ping = new Ping(name_id);
         expect(ping.size).toEqual(0);
     });
     it("push",()=>{
-        const name_id = "kkk";
         const ping:Ping = new Ping(name_id);
         ping.push({Job:'Engineer', name:'My Name', Age:44});
         expect(ping.size).toBe(1);
     });
     it("getData", ()=>{
-        const name_id = "kkk";
         const ping:Ping = new Ping(name_id);
         ping.push({Job:'Engineer', name:'My Name', Age:44});
         ping.push({Job:'Engineer', name:'My Name2', Age:45});

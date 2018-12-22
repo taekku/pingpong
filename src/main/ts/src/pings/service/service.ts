@@ -1,7 +1,7 @@
 import { Ping } from "./Ping";
 import { RequestKind } from "./RequestKind";
 
-class Service{
+export class Service{
   private sId : string = "default";
   //private rType: RequestKind; // request kind
   private data: Ping[];
@@ -9,8 +9,7 @@ class Service{
     this.sId = sid;
     this.data = [];
   }
-  public getServiceId() : string{
-    return this.sId;
+  get id(){
+      return this.sId;
   }
 }
-export = Service;

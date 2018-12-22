@@ -22,6 +22,11 @@ export class Ping {
     public set id(v: string){
         this._id = v;
     }
+    public clear(){
+      this._data = [];
+      this.status = [];
+      this.setSize(0);
+    }
     /**
      * 가지고있는 Data의 갯수
      */
