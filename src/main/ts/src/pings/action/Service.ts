@@ -6,7 +6,10 @@ export class Service{
   private ping: Ping[];
   constructor(sid: string, ping:Ping[]=[]){
     this.sId = sid;
-    this.ping = ping;
+    if( ping instanceof Array )
+      this.ping = ping;
+    else
+      this.ping = [ping];
   }
   get id(){
       return this.sId;
@@ -14,7 +17,14 @@ export class Service{
   public push(ping:Ping){
       this.ping.push(ping);
   }
-  public isContains(ping_name:string):boolean{
-      return true;
+  public findPing(ping_name:string):Ping[]{
+      return this.ping.filter(element => element.id == ping_name);
+  }
+  public getPingIds():string[]{
+      let nm:string[] = [];
+      this.ping.forEach(element => {
+          nm.push(element.id);
+      });
+      return nm;
   }
 }

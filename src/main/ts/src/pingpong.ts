@@ -1,10 +1,4 @@
-import { Ping } from "./pings/action/Ping";
-export class PingTest{
-  constructor(){
-  }
-  public getPing() : Ping{
-    const ping = new Ping("Test");
-    return ping;
-  }
-}
-
+export { Ping } from './pings/action/Ping';
+export { Service } from './pings/action/Service';
+export { RequestKind } from './pings/action/RequestKind';
+export { Status } from './pings/action/Status';

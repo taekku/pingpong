@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["pings"] = factory();
+		exports["ping"] = factory();
 	else
-		root["pings"] = factory();
+		root["ping"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -98,20 +98,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Ping_1 = __webpack_require__(1);
-var PingTest = /** @class */ (function () {
-    function PingTest() {
-    }
-    PingTest.prototype.getPing = function () {
-        var ping = new Ping_1.Ping("Test");
-        return ping;
-    };
-    return PingTest;
-}());
-exports.PingTest = PingTest;
+module.exports = __webpack_require__(1);
 
 
 /***/ }),
@@ -121,12 +108,37 @@ exports.PingTest = PingTest;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Ping_1 = __webpack_require__(2);
+exports.Ping = Ping_1.Ping;
+var Service_1 = __webpack_require__(5);
+exports.Service = Service_1.Service;
+var RequestKind_1 = __webpack_require__(3);
+exports.RequestKind = RequestKind_1.RequestKind;
+var Status_1 = __webpack_require__(4);
+exports.Status = Status_1.Status;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var RequestKind_1 = __webpack_require__(3);
+var Status_1 = __webpack_require__(4);
+/**
+ * Class Ping
+ * Client Side request parameter
+ */
 var Ping = /** @class */ (function () {
-    function Ping(mId) {
+    function Ping(mId, kind) {
+        if (kind === void 0) { kind = RequestKind_1.RequestKind.Query; }
         this._id = mId;
         this._size = 0;
-        this.status = [];
-        this.data = [];
+        this._status = [];
+        this._data = [];
+        this._requestKind = kind;
     }
     Object.defineProperty(Ping.prototype, "id", {
         get: function () {
@@ -138,36 +150,66 @@ var Ping = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Ping.prototype.clear = function () {
+        this._data = [];
+        this._status = [];
+        this.setSize(0);
+    };
     Object.defineProperty(Ping.prototype, "size", {
+        /**
+         * 가지고있는 Data의 갯수
+         */
         get: function () {
             return this._size;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * 데이터크기 조절
+     * TODO 어떻게 해야 할지?
+     * @param sz
+     */
     Ping.prototype.setSize = function (sz) {
         this._size = sz;
-        this.status.length = sz;
-        this.data.length = sz;
+        this._status.length = sz;
+        this._data.length = sz;
     };
+    /**
+     * get value
+     * @param idx data row
+     * @param name data property
+     */
     Ping.prototype.getVal = function (idx, name) {
         if (idx === void 0) { idx = 0; }
         if (this.size > 0) {
-            return this.data[idx][name];
+            return this._data[idx][name];
         }
         else {
             return null;
         }
     };
-    Ping.prototype.setAll = function (name, v) {
-        this.data.forEach(function (obj) { obj[name] = v; });
-    };
+    /**
+     * set value
+     * @param idx
+     * @param name
+     * @param v
+     */
     Ping.prototype.setVal = function (idx, name, v) {
         if (idx === void 0) { idx = 0; }
-        this.data[idx][name] = v;
+        this._data[idx][name] = v;
+    };
+    /**
+     * set value to all records
+     * @param name record property name
+     * @param v property value of row
+     */
+    Ping.prototype.setAll = function (name, v) {
+        this._data.forEach(function (obj) { obj[name] = v; });
     };
     /**
      * 조건에 만족시키는 DATA를 리턴
+     * private로 전환시킴 2018.12.21
      * @param filters : condition object
      *                  let filters = {
      *                                name: ["Krishna", "Naveen"],
@@ -176,15 +218,112 @@ var Ping = /** @class */ (function () {
      */
     Ping.prototype.filterData = function (filters) {
         // return this.data.filter(o => Object.keys(filters).every(k => [].concat(filters[k]).some(v => o[k].includes(v))));
-        return this.data.filter(function (o) { return Object.keys(filters).every(function (k) { return [].concat(filters[k]).some(function (v) { return o[k] === v; }); }); });
+        return this._data.filter(function (o) { return Object.keys(filters).every(function (k) { return [].concat(filters[k]).some(function (v) { return o[k] === v; }); }); });
     };
-    Ping.prototype.push = function (data) {
-        this.data[this.size] = data;
+    /**
+     * Deep Clone
+     * @param filters
+     */
+    Ping.prototype.getData = function (filters) {
+        return JSON.parse(JSON.stringify(this.filterData(filters)));
+    };
+    /**
+     * accept to the New Data
+     * @param record row data
+     */
+    Ping.prototype.push = function (record) {
+        this._data[this.size] = record;
+        this._status[this.size] = Status_1.Status.None;
         this.setSize(this.size + 1);
     };
+    Object.defineProperty(Ping.prototype, "ReqKind", {
+        get: function () {
+            return this._requestKind;
+        },
+        set: function (kind) {
+            this._requestKind = kind;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Ping;
 }());
 exports.Ping = Ping;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var RequestKind;
+(function (RequestKind) {
+    RequestKind[RequestKind["Query"] = 0] = "Query";
+    RequestKind[RequestKind["New"] = 1] = "New";
+    RequestKind[RequestKind["Save"] = 2] = "Save";
+    RequestKind[RequestKind["Delete"] = 3] = "Delete";
+})(RequestKind = exports.RequestKind || (exports.RequestKind = {}));
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Status;
+(function (Status) {
+    Status[Status["None"] = 0] = "None";
+    Status[Status["Select"] = 1] = "Select";
+    Status[Status["Insert"] = 2] = "Insert";
+    Status[Status["Update"] = 3] = "Update";
+    Status[Status["Delete"] = 4] = "Delete";
+})(Status = exports.Status || (exports.Status = {}));
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Service = /** @class */ (function () {
+    function Service(sid, ping) {
+        if (ping === void 0) { ping = []; }
+        this.sId = "default";
+        this.sId = sid;
+        if (ping instanceof Array)
+            this.ping = ping;
+        else
+            this.ping = [ping];
+    }
+    Object.defineProperty(Service.prototype, "id", {
+        get: function () {
+            return this.sId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Service.prototype.push = function (ping) {
+        this.ping.push(ping);
+    };
+    Service.prototype.findPing = function (ping_name) {
+        return this.ping.filter(function (element) { return element.id == ping_name; });
+    };
+    Service.prototype.getPingIds = function () {
+        var nm = [];
+        this.ping.forEach(function (element) {
+            nm.push(element.id);
+        });
+        return nm;
+    };
+    return Service;
+}());
+exports.Service = Service;
 
 
 /***/ })

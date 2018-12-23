@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'none',
-  entry: './src/pingpong.ts',
+  entry: ['./src/pingpong.ts'],
   module: {
     rules: [
       {
@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     filename: 'ping_bundle.js',
-    library: 'pings',
+    library: 'ping',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, '../resources/static/assets/js')
   }

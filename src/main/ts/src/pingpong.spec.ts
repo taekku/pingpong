@@ -1,10 +1,14 @@
 
 import 'jasmine';
-import { PingTest } from './pingpong';
+import {Ping, Service} from './pingpong';
 
-describe('PingTest', () => {
-    it('Create Ping', () => {
-        const s = new PingTest();
-        expect(s.getPing().id).toBe("Test");
-    });
+describe('Pingpong', () => {
+  it('Create Ping', () => {
+    const ping = new Ping('Test');
+    expect(ping.id).toBe("Test");
+  });
+  it('Service', ()=>{
+    const service = new Service('Test');
+    expect(service.id).toBe('Test');
+  });
 });

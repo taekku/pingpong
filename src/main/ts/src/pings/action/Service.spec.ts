@@ -14,7 +14,9 @@ describe("Service", ()=>{
         const service = new Service(serviceId);
         const ping:Ping = new Ping("P0001");
         service.push(ping);
-        expect(service.isContains("P0001")).toEqual(true);
+        const nm:string[] = service.getPingIds();
+        expect(nm[0]).toEqual("P0001");
+        console.log(nm);
     });
     it("ping_data", ()=>{
         const service = new Service(serviceId);

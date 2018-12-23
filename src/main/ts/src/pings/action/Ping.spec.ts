@@ -46,4 +46,7 @@ describe("Ping", ()=>{
         ping.ReqKind = RequestKind.Query;
         expect(ping.ReqKind).toEqual(RequestKind.Query);
     });
+    it("private", ()=>{
+      const ping:Ping = new Ping("test");
+    });
 });
