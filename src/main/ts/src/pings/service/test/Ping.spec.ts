@@ -1,6 +1,7 @@
 // import { expect } from 'chai';
 import 'jasmine';
 import { Ping } from '../Ping';
+import { RequestKind } from '../RequestKind';
 
 describe("Ping", ()=>{
     const name_id = "kkk";
@@ -38,5 +39,11 @@ describe("Ping", ()=>{
         expect(data.length).toBe(0);
         data = ping.getData({Job:'Engineer'});
         expect(data.length).toBe(3);
+    });
+    it("RequestKind", ()=>{
+        const ping:Ping = new Ping(name_id, RequestKind.New);
+        expect(ping.ReqKind).toEqual(RequestKind.New);
+        ping.ReqKind = RequestKind.Query;
+        expect(ping.ReqKind).toEqual(RequestKind.Query);
     });
 });

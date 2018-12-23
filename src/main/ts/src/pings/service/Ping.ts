@@ -10,11 +10,13 @@ export class Ping {
     private _size: number;
     private status: Status[];
     private _data: any[];
-    constructor(mId:string){
+    private _requestKind: RequestKind;
+    constructor(mId:string, kind:RequestKind=RequestKind.Query){
         this._id = mId;
         this._size = 0;
         this.status = [];
         this._data = [];
+        this._requestKind = kind;
     }
     public get id(){
         return this._id;
@@ -98,6 +100,13 @@ export class Ping {
      */
     public push(record:any){
         this._data[this.size] = record;
+        this.status[this.size] = Status.None;
         this.setSize(this.size + 1);
+    }
+    get ReqKind():RequestKind{
+        return this._requestKind;
+    }
+    set ReqKind(kind:RequestKind){
+        this._requestKind = kind;
     }
 }
