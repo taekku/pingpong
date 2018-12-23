@@ -1,6 +1,6 @@
 
 import 'jasmine';
-import { PingTest } from '../pingpong';
+import { PingTest } from './pingpong';
 
 describe('PingTest', () => {
     it('Create Ping', () => {

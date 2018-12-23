@@ -1,7 +1,7 @@
 // import { expect } from 'chai';
 import 'jasmine';
-import { Ping } from '../Ping';
-import { RequestKind } from '../RequestKind';
+import { Ping } from './Ping';
+import { RequestKind } from './RequestKind';
 
 describe("Ping", ()=>{
     const name_id = "kkk";

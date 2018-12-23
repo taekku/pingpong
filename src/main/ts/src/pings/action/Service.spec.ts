@@ -1,6 +1,6 @@
 import 'jasmine';
-import { Service } from '../Service';
-import { Ping } from '../Ping';
+import { Service } from './Service';
+import { Ping } from './Ping';
 
 describe("Service", ()=>{
     let serviceId = "myService";
@@ -14,5 +14,9 @@ describe("Service", ()=>{
         const service = new Service(serviceId);
         const ping:Ping = new Ping("P0001");
         service.push(ping);
+        expect(service.isContains("P0001")).toEqual(true);
+    });
+    it("ping_data", ()=>{
+        const service = new Service(serviceId);
     });
 });

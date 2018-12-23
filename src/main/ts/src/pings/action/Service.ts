@@ -14,4 +14,7 @@ export class Service{
   public push(ping:Ping){
       this.ping.push(ping);
   }
+  public isContains(ping_name:string):boolean{
+      return true;
+  }
 }
