@@ -1,5 +1,4 @@
-import { Page } from "./pings/action/page";
-import { Ping } from "./pings/service/Ping";
+import { Ping } from "./pings/action/Ping";
 export class PingTest{
   constructor(){
   }

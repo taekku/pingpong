@@ -8,13 +8,13 @@ import { Status } from "./Status";
 export class Ping {
     private _id: string; // public ID
     private _size: number;
-    private status: Status[];
+    private _status: Status[];
     private _data: any[];
     private _requestKind: RequestKind;
     constructor(mId:string, kind:RequestKind=RequestKind.Query){
         this._id = mId;
         this._size = 0;
-        this.status = [];
+        this._status = [];
         this._data = [];
         this._requestKind = kind;
     }
@@ -26,7 +26,7 @@ export class Ping {
     }
     public clear(){
       this._data = [];
-      this.status = [];
+      this._status = [];
       this.setSize(0);
     }
     /**
@@ -42,7 +42,7 @@ export class Ping {
      */
     private setSize(sz:number){
         this._size = sz;
-        this.status.length = sz;
+        this._status.length = sz;
         this._data.length = sz;
     }
     /**
@@ -100,7 +100,7 @@ export class Ping {
      */
     public push(record:any){
         this._data[this.size] = record;
-        this.status[this.size] = Status.None;
+        this._status[this.size] = Status.None;
         this.setSize(this.size + 1);
     }
     get ReqKind():RequestKind{
