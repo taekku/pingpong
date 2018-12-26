@@ -12,14 +12,16 @@
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){
+      let service = new ping.Service("TEST Service");
       $("#mySave").text($("#mycontents").val());
       let myData = {
         data: "Hi Data",
         Hello: ["Good Morning","Good Afternoon"],
+        "Service": service,
         "myData" : [$("#mycontents").val()]
       };
       let myAjax = $.ajax({
-        url: "/myHello3",
+        url: "/Pingpong",
         type: "POST",
         data: JSON.stringify(myData),
         success: function (data) {

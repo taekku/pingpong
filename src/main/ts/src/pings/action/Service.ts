@@ -14,7 +14,7 @@ export class Service{
   get id(){
       return this.sId;
   }
-  public push(ping:Ping){
+  public addPing(ping:Ping){
       this.ping.push(ping);
   }
   public findPing(ping_name:string):Ping[]{

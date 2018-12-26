@@ -30,6 +30,36 @@ public class HelloController {
 		retVal.addObject("message", "Hello my boys!");
         return retVal;
     }
+    @RequestMapping(value="/jquery.orgchart", method = RequestMethod.GET)
+    public ModelAndView orgChart(
+                        // @RequestParam("sayit")
+                        // String sayit
+                        ) {
+		ModelAndView retVal = new ModelAndView();
+		retVal.setViewName("jquery.orgchart");
+		retVal.addObject("message", "Hello my boys!");
+        return retVal;
+    }
+    @RequestMapping(value="/html2canvas", method = RequestMethod.GET)
+    public ModelAndView html2canvas(
+                        // @RequestParam("sayit")
+                        // String sayit
+                        ) {
+		ModelAndView retVal = new ModelAndView();
+		retVal.setViewName("html2canvas");
+		retVal.addObject("message", "Hello my boys!");
+        return retVal;
+    }
+    @RequestMapping(value="/pdf2", method = RequestMethod.GET)
+    public ModelAndView pdf2(
+                        // @RequestParam("sayit")
+                        // String sayit
+                        ) {
+		ModelAndView retVal = new ModelAndView();
+		retVal.setViewName("pdf2");
+		retVal.addObject("message", "Hello my boys!");
+        return retVal;
+    }
     @GetMapping("/hello")
     public String ping(Map<String, Object> model) {
         // model.put("time", new Date());
