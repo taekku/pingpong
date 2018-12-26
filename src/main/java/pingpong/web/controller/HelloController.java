@@ -30,6 +30,16 @@ public class HelloController {
 		retVal.addObject("message", "Hello my boys!");
         return retVal;
     }
+    @RequestMapping(value="/jquery.orgchart", method = RequestMethod.GET)
+    public ModelAndView orgChart(
+                        // @RequestParam("sayit")
+                        // String sayit
+                        ) {
+		ModelAndView retVal = new ModelAndView();
+		retVal.setViewName("jquery.orgchart");
+		retVal.addObject("message", "Hello my boys!");
+        return retVal;
+    }
     @GetMapping("/hello")
     public String ping(Map<String, Object> model) {
         // model.put("time", new Date());
