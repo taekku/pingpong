@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -18,12 +19,14 @@
   <div id="chart-container"></div>
 
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/assets/js/jquery.orgchart.js"></script>
+  <script type="text/javascript" src="/assets/js/jquery.orgchart.js"></script><!-- 2.1.3 -->
+  <script type="text/javascript" src="/assets/js/html2canvas.min.js"></script><!-- 0.5.0-beta4 -->
+  <script type="text/javascript" src="/assets/js/jspdf.min.js"></script><!-- 1.3.5 -->
   <script type="text/javascript">
     $(function() {
     var datascource = {
-      'name': 'Lao Lao',
-      'title': '<div style="color:red">general manager <br/> 한글은?</div>',
+      'name': 'Lao Lao 한글',
+      'title': 'general manager',
       'children': [
         { 'name': 'Bo Miao', 'title': 'department manager',
           'children': [{ 'name': 'Li Xin', 'title': 'senior engineer' }]
@@ -45,8 +48,12 @@
     var oc = $('#chart-container').orgchart({
       'data' : datascource,
       'nodeContent': 'title',
+      'exportButton': true,
+      'exportFilename': 'MyOrgChart',
+      'exportFileextension': 'pdf',
       'draggable': true,
       'dropCriteria': function($draggedNode, $dragZone, $dropZone) {
+        //console.log($draggedNode);
         if($draggedNode.find('.content').text().indexOf('manager') > -1 && $dropZone.find('.content').text().indexOf('engineer') > -1) {
           return false;
         }
