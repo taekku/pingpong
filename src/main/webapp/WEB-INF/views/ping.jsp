@@ -46,13 +46,16 @@
       });
     });
     $("#btnTest").click(function(evt){
-      findField($("#myForm1"));
+      //findField($("#myForm1"));
+      let service = new pp.Service("ping.jsp");
+      let ping = new pp.Ping("PING_0001");
+      ping.push({"mycontents":$("#mycontents").val()});
+      service.addPing(ping);
+      service.request();
     });
   });
-var pp = new ping.Ping('test');
-console.log(pp);
-pp._size = 10;
-console.log(pp);
+//var ping = new pp.Ping('ping.jsp test new ping.Ping()');
+//console.log(ping);
   </script>
 </head>
 <body>

@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     filename: 'ping_bundle.js',
-    library: 'ping',
+    library: 'pp',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, '../resources/static/assets/js')
   }
