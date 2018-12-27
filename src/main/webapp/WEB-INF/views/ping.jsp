@@ -38,8 +38,7 @@
         $("#mySave").text(JSON.stringify(data) + data.Hello2);
       })
       .fail(function( data ) {
-        // console.log("fail==>");
-        // console.log(data);
+        console.error(data);
       })
       .always(function( data ) {
         // console.log("always==>");
