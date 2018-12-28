@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){
-      let service = new ping.Service("TEST Service");
+      let service = new pp.Service("TEST Service");
       $("#mySave").text($("#mycontents").val());
       let myData = {
         data: "Hi Data",
@@ -29,7 +30,7 @@
           console.log(data);
         },
         beforeSend: function(xhr){
-          xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+          xhr.overrideMimeType( "text/plain; charset=utf-8" );
         },
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -59,6 +60,7 @@
   </script>
 </head>
 <body>
+  한글은 되나요?
    <p>What did you say?</p>
    <p>I said: <span class="text-underline">"${mymessage}."</span></p>
    <script type="text/javascript" src="/assets/js/test.js">

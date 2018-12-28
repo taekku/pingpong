@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class PingController {
     record.put("ResponsePong", "GoodID");
     record.put("name","Taekgu" + session.getId());
     //System.out.println("Request:" + request.changeSessionId());
-    System.out.println("Session:" + session.getId());
+    //System.out.println("Session:" + session.getId());
     pong.add(record);
     pong.add(record);
     map.put("Pong", pong);
@@ -42,16 +43,17 @@ public class PingController {
 
     return map;
   }
-  @RequestMapping(value="/Pingpong/orgChart")
+  @RequestMapping(value="/Pingpong/orgChart")//, produces="application/text; charset=utf8")
   public Map<String, Object> getOrgChart(
-    HttpServletRequest request, HttpSession session,
+    HttpServletRequest request, HttpSession session, HttpServletResponse response,
     @RequestBody Map<String, Object> params
   ){
+    // response.addHeader("Content-Type", "application/json;charset=UTF-8");
     //logMap(params);
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("org_data", pingService.getOrgChart());
     System.out.println("orgChart:");
-
+    System.out.println(map);
     return map;
   }
   private void logMap(Map<String, Object> params){

@@ -345,7 +345,7 @@ var Service = /** @class */ (function () {
                 console.info(result['Pong2']);
             },
             beforeSend: function (xhr) {
-                xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                xhr.overrideMimeType("text/plain; charset=utf-8");
             },
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -361,19 +361,28 @@ var Service = /** @class */ (function () {
             // this.log(pong);
         });
     };
+    Service.putOrg = function (root, org) {
+        var _this = this;
+        if (org.org_line.startsWith(root.org_line)) {
+            if (org.org_line.indexOf('/', root.org_line.length + 1) < 0) {
+                root.children.push(jquery_1.default.extend({ children: [] }, org));
+            }
+            else {
+                root.children.forEach(function (o) { _this.putOrg(o, org); });
+            }
+        }
+        else { // No Action, Not child
+        }
+    };
     Service.makeOrgChart = function (org) {
+        var _this = this;
         var root;
         var cur_line = "";
         root = jquery_1.default.extend({ children: [] }, org[0]);
-        var cur_node = root;
-        cur_line = root.org_line;
-        for (var i = 1; i < org.length; i++) {
-            if (org[i].org_line.startsWith(cur_line))
-                cur_node.children.push(jquery_1.default.extend({ children: [] }, org[i]));
-        }
+        org.slice(1).forEach(function (o) { _this.putOrg(root, o); });
         return root;
     };
-    Service.prototype.requestOrgChart = function () {
+    Service.prototype.requestOrgChart = function (myCallback) {
         var server_url = "/Pingpong/orgChart";
         var requestData = {
             "ServiceId": this.id,
@@ -383,19 +392,22 @@ var Service = /** @class */ (function () {
         var myAjax = jquery_1.default.ajax({
             url: server_url,
             type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             data: JSON.stringify(requestData),
             success: function (result) {
-                console.info("success(orgChart)==>");
+                var obj = result;
+                console.log(obj);
+                console.info("success(orgChart)==>" + result.org_data[0].name);
                 console.info(result);
                 var chart_data = Service.makeOrgChart(result.org_data);
                 console.info(chart_data);
-                resultData = chart_data;
+                myCallback(chart_data);
             },
             beforeSend: function (xhr) {
-                xhr.overrideMimeType("text/plain; charset=x-user-defined");
-            },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
+                // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+                xhr.overrideMimeType("text/plain; charset=utf-8");
+            }
         })
             .done(function (pong) {
             console.info('done==>');

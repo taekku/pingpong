@@ -48,7 +48,7 @@ export class Service{
           console.info(result['Pong2']);
         },
         beforeSend: function(xhr){
-          xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+          xhr.overrideMimeType( "text/plain; charset=utf-8" );
         },
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -64,19 +64,24 @@ export class Service{
         // this.log(pong);
       });
   }
+  static putOrg(root:any, org:any):any{
+    if( org.org_line.startsWith(root.org_line) ){
+      if( org.org_line.indexOf('/',root.org_line.length + 1) < 0 ){
+        root.children.push($.extend({children:[]}, org));
+      } else {
+        root.children.forEach( (o: any) => { this.putOrg(o, org); });
+      }
+    } else { // No Action, Not child
+    }
+  }
   static makeOrgChart(org:any[]){
-    let root;
+    let root:any;
     let cur_line = "";
     root = $.extend({children:[]},org[0]);
-    let cur_node = root;
-    cur_line = root.org_line;
-    for(let i=1; i<org.length;i++){
-      if( org[i].org_line.startsWith(cur_line) )
-        cur_node.children.push($.extend({children:[]}, org[i]));
-    }
+    org.slice(1).forEach((o)=>{this.putOrg(root, o)});
     return root;
   }
-  public requestOrgChart(){
+  public requestOrgChart(myCallback:(x:any)=>any){
       const server_url = "/Pingpong/orgChart";
       let requestData = {
         "ServiceId" : this.id,
@@ -86,19 +91,22 @@ export class Service{
       let myAjax = $.ajax({
         url: server_url,
         type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         data: JSON.stringify(requestData),
         success: function (result) {
-          console.info("success(orgChart)==>");
+          var obj = result;
+          console.log(obj);
+          console.info("success(orgChart)==>" + result.org_data[0].name);
           console.info(result);
           let chart_data = Service.makeOrgChart(result.org_data);
           console.info(chart_data);
-          resultData = chart_data;
+          myCallback(chart_data);
         },
         beforeSend: function(xhr){
-          xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
+          // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+          xhr.overrideMimeType( "text/plain; charset=utf-8" );
+        }
       })
       .done(function( pong ) {
         console.info('done==>');
