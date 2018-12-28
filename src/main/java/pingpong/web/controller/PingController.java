@@ -42,6 +42,18 @@ public class PingController {
 
     return map;
   }
+  @RequestMapping(value="/Pingpong/orgChart")
+  public Map<String, Object> getOrgChart(
+    HttpServletRequest request, HttpSession session,
+    @RequestBody Map<String, Object> params
+  ){
+    //logMap(params);
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("org_data", pingService.getOrgChart());
+    System.out.println("orgChart:");
+
+    return map;
+  }
   private void logMap(Map<String, Object> params){
     // // 방법1
     // Iterator<String> keys = params.keySet().iterator();

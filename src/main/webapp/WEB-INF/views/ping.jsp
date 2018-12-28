@@ -8,7 +8,7 @@
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/assets/js/ping_message.js"></script>
   <script type="text/javascript" src="/assets/js/ping_action.js"></script>
-  <script src="/assets/js/ping_bundle.js"></script>
+  <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){

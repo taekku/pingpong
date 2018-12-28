@@ -14,6 +14,7 @@
     #chart-container { height: 600px; border: 2px solid #aaa; }
     .orgchart { background: #fff; }
   </style>
+  <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
 </head>
 <body>
   <div id="chart-container"></div>
@@ -67,6 +68,13 @@
       );
     });
   });
+  </script>
+  <script type="text/javascript">
+  let sss = new pp.Service("testest");
+  console.log("myOrgChart");
+  let org_data = sss.requestOrgChart() ;
+  console.log("결과:");
+  console.error(org_data);
   </script>
   </body>
 </html>

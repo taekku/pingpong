@@ -361,6 +361,54 @@ var Service = /** @class */ (function () {
             // this.log(pong);
         });
     };
+    Service.makeOrgChart = function (org) {
+        var root;
+        var cur_line = "";
+        root = jquery_1.default.extend({ children: [] }, org[0]);
+        var cur_node = root;
+        cur_line = root.org_line;
+        for (var i = 1; i < org.length; i++) {
+            if (org[i].org_line.startsWith(cur_line))
+                cur_node.children.push(jquery_1.default.extend({ children: [] }, org[i]));
+        }
+        return root;
+    };
+    Service.prototype.requestOrgChart = function () {
+        var server_url = "/Pingpong/orgChart";
+        var requestData = {
+            "ServiceId": this.id,
+            "Ping": this.ping
+        };
+        var resultData;
+        var myAjax = jquery_1.default.ajax({
+            url: server_url,
+            type: "POST",
+            data: JSON.stringify(requestData),
+            success: function (result) {
+                console.info("success(orgChart)==>");
+                console.info(result);
+                var chart_data = Service.makeOrgChart(result.org_data);
+                console.info(chart_data);
+                resultData = chart_data;
+            },
+            beforeSend: function (xhr) {
+                xhr.overrideMimeType("text/plain; charset=x-user-defined");
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+            .done(function (pong) {
+            console.info('done==>');
+        })
+            .fail(function (pong) {
+            console.error(pong);
+        })
+            .always(function (pong) {
+            console.log("always==>");
+            // this.log(pong);
+        });
+        return resultData;
+    };
     return Service;
 }());
 exports.Service = Service;
