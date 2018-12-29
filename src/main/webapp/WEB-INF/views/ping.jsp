@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -8,11 +9,11 @@
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/assets/js/ping_message.js"></script>
   <script type="text/javascript" src="/assets/js/ping_action.js"></script>
-  <script src="/assets/js/ping_bundle.js"></script>
+  <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#btnSave").click(function(){
-      let service = new ping.Service("TEST Service");
+      let service = new pp.Service("TEST Service");
       $("#mySave").text($("#mycontents").val());
       let myData = {
         data: "Hi Data",
@@ -29,7 +30,7 @@
           console.log(data);
         },
         beforeSend: function(xhr){
-          xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+          xhr.overrideMimeType( "text/plain; charset=utf-8" );
         },
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -38,8 +39,7 @@
         $("#mySave").text(JSON.stringify(data) + data.Hello2);
       })
       .fail(function( data ) {
-        // console.log("fail==>");
-        // console.log(data);
+        console.error(data);
       })
       .always(function( data ) {
         // console.log("always==>");
@@ -47,16 +47,20 @@
       });
     });
     $("#btnTest").click(function(evt){
-      findField($("#myForm1"));
+      //findField($("#myForm1"));
+      let service = new pp.Service("ping.jsp");
+      let ping = new pp.Ping("PING_0001");
+      ping.push({"mycontents":$("#mycontents").val()});
+      service.addPing(ping);
+      service.request();
     });
   });
-var pp = new ping.Ping('test');
-console.log(pp);
-pp._size = 10;
-console.log(pp);
+//var ping = new pp.Ping('ping.jsp test new ping.Ping()');
+//console.log(ping);
   </script>
 </head>
 <body>
+  한글은 되나요?
    <p>What did you say?</p>
    <p>I said: <span class="text-underline">"${mymessage}."</span></p>
    <script type="text/javascript" src="/assets/js/test.js">

@@ -14,6 +14,7 @@
     #chart-container { height: 600px; border: 2px solid #aaa; }
     .orgchart { background: #fff; }
   </style>
+  <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
 </head>
 <body>
   <div id="chart-container"></div>
@@ -45,8 +46,34 @@
         { 'name': 'Hong Miao', 'title': 'department manager' }
       ]
     };
-    var oc = $('#chart-container').orgchart({
-      'data' : datascource,
+    // var oc = $('#chart-container').orgchart({
+    //   'data' : datascource,
+    //   'nodeContent': 'title',
+    //   'exportButton': true,
+    //   'exportFilename': 'MyOrgChart',
+    //   'exportFileextension': 'pdf',
+    //   'draggable': true,
+    //   'dropCriteria': function($draggedNode, $dragZone, $dropZone) {
+    //     //console.log($draggedNode);
+    //     if($draggedNode.find('.content').text().indexOf('manager') > -1 && $dropZone.find('.content').text().indexOf('engineer') > -1) {
+    //       return false;
+    //     }
+    //     return true;
+    //   }
+    // });
+    // oc.$chart.on('nodedrop.orgchart', function(event, extraParams) {
+    //   console.log('draggedNode:' + extraParams.draggedNode.children('.title').text()
+    //     + ', dragZone:' + extraParams.dragZone.children('.title').text()
+    //     + ', dropZone:' + extraParams.dropZone.children('.title').text()
+    //   );
+    // });
+  });
+  </script>
+  <script type="text/javascript">
+  let sss = new pp.Service("testest");
+  sss.requestOrgChart(function(data){
+    var oc1 = $('#chart-container').orgchart({
+      'data' : data,
       'nodeContent': 'title',
       'exportButton': true,
       'exportFilename': 'MyOrgChart',
@@ -60,13 +87,13 @@
         return true;
       }
     });
-    oc.$chart.on('nodedrop.orgchart', function(event, extraParams) {
+    oc1.$chart.on('nodedrop.orgchart', function(event, extraParams) {
       console.log('draggedNode:' + extraParams.draggedNode.children('.title').text()
         + ', dragZone:' + extraParams.dragZone.children('.title').text()
         + ', dropZone:' + extraParams.dropZone.children('.title').text()
       );
     });
-  });
+  }) ;
   </script>
   </body>
 </html>

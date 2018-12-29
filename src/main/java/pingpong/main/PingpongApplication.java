@@ -16,15 +16,26 @@ import pingpong.web.property.PingpongProperties;
 public class PingpongApplication extends SpringBootServletInitializer {
 
 	/**
-	 *
+	 * Controller등 스프링에서 이용할 패키지명 지정
 	 */
-
 	static final String PINGPONG_WEB = "pingpong.web";
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(PingpongApplication.class);
-	}
+  }
+  // @Bean
+  // public HttpMessageConverter<String> responseBodyConverter() {
+  //       return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+  // }
+ 
+  // @Bean
+  // public Filter characterEncodingFilter() {
+  //       CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+  //       characterEncodingFilter.setEncoding("UTF-8");
+  //       characterEncodingFilter.setForceEncoding(true);
+  //       return characterEncodingFilter;
+  // }
 	public static void main(String[] args) {
         SpringApplication.run(PingpongApplication.class, args);
         System.out.println("OK Start Now");
