@@ -1,6 +1,6 @@
 import $ from "jquery";
 import { Ping } from "./Ping";
-import { RequestKind } from "./RequestKind";
+import { Organization } from "../value_object/Organization";
 
 export class Service{
     private sId : string = "default";
@@ -64,23 +64,6 @@ export class Service{
         // this.log(pong);
       });
   }
-  static putOrg(root:any, org:any):any{
-    if( org.org_line.startsWith(root.org_line) ){
-      if( org.org_line.indexOf('/',root.org_line.length + 1) < 0 ){
-        root.children.push($.extend({children:[]}, org));
-      } else {
-        root.children.forEach( (o: any) => { this.putOrg(o, org); });
-      }
-    } else { // No Action, Not child
-    }
-  }
-  static makeOrgChart(org:any[]){
-    let root:any;
-    let cur_line = "";
-    root = $.extend({children:[]},org[0]);
-    org.slice(1).forEach((o)=>{this.putOrg(root, o)});
-    return root;
-  }
   public requestOrgChart(myCallback:(x:any)=>any){
       const server_url = "/Pingpong/orgChart";
       let requestData = {
@@ -95,16 +78,14 @@ export class Service{
         dataType: "json",
         data: JSON.stringify(requestData),
         success: function (result) {
-          var obj = result;
-          console.log(obj);
-          console.info("success(orgChart)==>" + result.org_data[0].name);
-          console.info(result);
-          let chart_data = Service.makeOrgChart(result.org_data);
-          console.info(chart_data);
-          myCallback(chart_data);
+          let org = result.org_data[0];
+          let root = new Organization(org.org_line, org.id, org.pid, org.name, org.title);
+          result.org_data.slice(1).forEach((org:any) => { 
+            root.push(new Organization(org.org_line, org.id, org.pid, org.name, org.title));
+          });
+          myCallback(root);
         },
         beforeSend: function(xhr){
-          // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
           xhr.overrideMimeType( "text/plain; charset=utf-8" );
         }
       })

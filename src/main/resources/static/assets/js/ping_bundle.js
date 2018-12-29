@@ -295,6 +295,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var jquery_1 = __importDefault(__webpack_require__(6));
+var Organization_1 = __webpack_require__(7);
 var Service = /** @class */ (function () {
     function Service(sid, ping) {
         if (ping === void 0) { ping = []; }
@@ -361,27 +362,6 @@ var Service = /** @class */ (function () {
             // this.log(pong);
         });
     };
-    Service.putOrg = function (root, org) {
-        var _this = this;
-        if (org.org_line.startsWith(root.org_line)) {
-            if (org.org_line.indexOf('/', root.org_line.length + 1) < 0) {
-                root.children.push(jquery_1.default.extend({ children: [] }, org));
-            }
-            else {
-                root.children.forEach(function (o) { _this.putOrg(o, org); });
-            }
-        }
-        else { // No Action, Not child
-        }
-    };
-    Service.makeOrgChart = function (org) {
-        var _this = this;
-        var root;
-        var cur_line = "";
-        root = jquery_1.default.extend({ children: [] }, org[0]);
-        org.slice(1).forEach(function (o) { _this.putOrg(root, o); });
-        return root;
-    };
     Service.prototype.requestOrgChart = function (myCallback) {
         var server_url = "/Pingpong/orgChart";
         var requestData = {
@@ -396,13 +376,12 @@ var Service = /** @class */ (function () {
             dataType: "json",
             data: JSON.stringify(requestData),
             success: function (result) {
-                var obj = result;
-                console.log(obj);
-                console.info("success(orgChart)==>" + result.org_data[0].name);
-                console.info(result);
-                var chart_data = Service.makeOrgChart(result.org_data);
-                console.info(chart_data);
-                myCallback(chart_data);
+                var org = result.org_data[0];
+                var root = new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title);
+                result.org_data.slice(1).forEach(function (org) {
+                    root.push(new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title));
+                });
+                myCallback(root);
             },
             beforeSend: function (xhr) {
                 // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
@@ -10795,6 +10774,34 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Organization = /** @class */ (function () {
+    function Organization(line, org_id, p_org_id, name, title) {
+        this.children = [];
+        this.line = line;
+        this.org_id = org_id;
+        this.p_org_id = p_org_id;
+        this.name = name;
+        this.title = title;
+    }
+    Organization.prototype.push = function (o) {
+        if (o.line.lastIndexOf(this.line, 0) === 0)
+            if (o.line.indexOf('/', this.line.length + 1) < 0)
+                this.children.push(o);
+            else
+                this.children.forEach(function (p) { return p.push(o); });
+    };
+    return Organization;
+}());
+exports.Organization = Organization;
 
 
 /***/ })
