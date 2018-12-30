@@ -54,7 +54,7 @@ public class PingService {
     
     Map<String,Object> record = new HashMap<String,Object>();
     record.put("org_line", "0"); record.put("id", "0"); record.put("pid", "");
-    record.put("name", "Lao Lao한글");
+    record.put("name", "대표이사");
     record.put("title","general manager");
     pong.add(record);
     

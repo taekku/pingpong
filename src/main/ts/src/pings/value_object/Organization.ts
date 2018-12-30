@@ -1,28 +1,32 @@
-
-interface org{
+/**
+ * Organization Tree를 관리하려고 함.
+ * class Organization is used for jquery.orgchart
+ */
+interface IOrganization{
   line:string;
-  org_id:number;
-  p_org_id:number;
+  id?:number;
+  pid?:number;
   name:string;
   title:string;
-  push(o:org):void;
+  children?: IOrganization[];
+  push(o:IOrganization):void;
 }
 
-export class Organization implements org{
+export class Organization implements IOrganization{
   line:string;
-  org_id: number;
-  p_org_id: number;
+  id: number;
+  pid: number;
   name: string;
   title: string;
-  children: org[] = [];
-  public constructor(line:string, org_id:number, p_org_id:number, name:string, title:string){
+  children: IOrganization[] = [];
+  public constructor(line:string, id:number, pid:number, name:string, title:string){
     this.line = line;
-    this.org_id = org_id;
-    this.p_org_id = p_org_id;
+    this.id = id;
+    this.pid = pid;
     this.name = name;
     this.title = title;
   }
-  public push(o:org){
+  public push(o:IOrganization){
     if( o.line.lastIndexOf(this.line, 0) === 0 )
       if( o.line.indexOf('/',this.line.length + 1) < 0 )
         this.children.push(o);

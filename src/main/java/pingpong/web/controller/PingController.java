@@ -52,8 +52,8 @@ public class PingController {
     //logMap(params);
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("org_data", pingService.getOrgChart());
-    System.out.println("orgChart:");
-    System.out.println(map);
+    // System.out.println("orgChart:");
+    // System.out.println(map);
     return map;
   }
   private void logMap(Map<String, Object> params){

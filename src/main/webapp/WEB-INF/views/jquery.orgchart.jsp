@@ -24,52 +24,6 @@
   <script type="text/javascript" src="/assets/js/html2canvas.min.js"></script><!-- 0.5.0-beta4 -->
   <script type="text/javascript" src="/assets/js/jspdf.min.js"></script><!-- 1.3.5 -->
   <script type="text/javascript">
-    $(function() {
-    var datascource = {
-      'name': 'Lao Lao 한글',
-      'title': 'general manager',
-      'children': [
-        { 'name': 'Bo Miao', 'title': 'department manager',
-          'children': [{ 'name': 'Li Xin', 'title': 'senior engineer' }]
-        },
-        { 'name': 'Su Miao', 'title': 'department manager',
-          'children': [
-            { 'name': 'Tie Hua', 'title': 'senior engineer' },
-            { 'name': 'Hei Hei', 'title': 'senior engineer',
-              'children': [
-                { 'name': 'Pang Pang', 'title': 'engineer' },
-                { 'name': 'Dan Dan', 'title': 'UE engineer' }
-              ]
-            }
-          ]
-        },
-        { 'name': 'Hong Miao', 'title': 'department manager' }
-      ]
-    };
-    // var oc = $('#chart-container').orgchart({
-    //   'data' : datascource,
-    //   'nodeContent': 'title',
-    //   'exportButton': true,
-    //   'exportFilename': 'MyOrgChart',
-    //   'exportFileextension': 'pdf',
-    //   'draggable': true,
-    //   'dropCriteria': function($draggedNode, $dragZone, $dropZone) {
-    //     //console.log($draggedNode);
-    //     if($draggedNode.find('.content').text().indexOf('manager') > -1 && $dropZone.find('.content').text().indexOf('engineer') > -1) {
-    //       return false;
-    //     }
-    //     return true;
-    //   }
-    // });
-    // oc.$chart.on('nodedrop.orgchart', function(event, extraParams) {
-    //   console.log('draggedNode:' + extraParams.draggedNode.children('.title').text()
-    //     + ', dragZone:' + extraParams.dragZone.children('.title').text()
-    //     + ', dropZone:' + extraParams.dropZone.children('.title').text()
-    //   );
-    // });
-  });
-  </script>
-  <script type="text/javascript">
   let sss = new pp.Service("testest");
   sss.requestOrgChart(function(data){
     var oc1 = $('#chart-container').orgchart({
