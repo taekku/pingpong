@@ -2,12 +2,20 @@ package pingpong.web.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PingService {
+  @Autowired
+  OrgMapper orgMapper;
+  public List<Map<String, Object>> getOrgTree(){
+    return orgMapper.selectOrgList();
+  }
+
   public ArrayList<Map<String,Object>> getData(Map<String,Object> params){
     ArrayList<Map<String,Object>> pong = new ArrayList<Map<String,Object>>();
     
@@ -116,4 +124,5 @@ public class PingService {
     pong.add(record);
     return pong;
   }
+
 }

@@ -362,7 +362,7 @@ var Service = /** @class */ (function () {
         });
     };
     Service.prototype.requestOrgChart = function (myCallback) {
-        var server_url = "/Pingpong/orgChart";
+        var server_url = "/Pingpong/orgChart2";
         var requestData = {
             "ServiceId": this.id,
             "Ping": this.ping
@@ -376,9 +376,10 @@ var Service = /** @class */ (function () {
             data: JSON.stringify(requestData),
             success: function (result) {
                 var org = result.org_data[0];
-                var root = new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail);
+                var kk = org.ORG_LINE;
+                var root = new Organization_1.Organization(org.ORG_LINE.substring(0, org.ORG_LINE.length - 1), org.ID, org.PID, org.NAME, org.TITLE, org.DETAIL);
                 result.org_data.slice(1).forEach(function (org) {
-                    root.push(new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail));
+                    root.push(new Organization_1.Organization(org.ORG_LINE.substring(0, org.ORG_LINE.length - 1), org.ID, org.PID, org.NAME, org.TITLE, org.DETAIL));
                 });
                 myCallback(root);
             },
@@ -390,11 +391,10 @@ var Service = /** @class */ (function () {
             console.info('done==>');
         })
             .fail(function (pong) {
-            console.error(pong);
+            console.info('fail==>');
         })
             .always(function (pong) {
             console.log("always==>");
-            // this.log(pong);
         });
         return resultData;
     };
@@ -10785,15 +10785,20 @@ var Organization = /** @class */ (function () {
     function Organization(line, id, pid, name, title, detail) {
         this.children = [];
         this.line = line;
-        this.id = id;
+        this.oid = id;
         this.pid = pid;
         this.name = name;
         this.title = title;
         this.detail = detail;
     }
     Organization.prototype.push = function (o) {
+        // console.log(1);
+        // console.log(this);
+        // console.log(2);
+        // console.log(o);
         if (o.line.lastIndexOf(this.line, 0) === 0)
             if (o.line.indexOf('/', this.line.length + 1) < 0)
+                // if( o.line.indexOf('/',this.line.length + 1) === o.line.length - 1)
                 this.children.push(o);
             else
                 this.children.forEach(function (p) { return p.push(o); });

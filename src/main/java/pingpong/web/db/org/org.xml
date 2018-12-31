@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pingpong.db.org.Org">
+ 
+  <select id="getOrgTree" parameterType="hashmap" resultType="hashmap">
+--org.org_line, org.id, org.pid, org.name, org.title, org.detail
+    select a.org_line org_line, a.org_id id, a.super_org_id pid, a.org_nm name, a.org_cd title, a.org_nm detail
+    from orm_org a
+    where trunc(sysdate) between sta_ymd and end_ymd
+    order by org_sort
+  </select>
+ 
+</mapper>

@@ -43,6 +43,15 @@ public class PingController {
 
     return map;
   }
+  @RequestMapping(value="/Pingpong/orgChart2")//, produces="application/text; charset=utf8")
+  public Map<String, Object> getOrgChart2(
+    HttpServletRequest request, HttpSession session, HttpServletResponse response,
+    @RequestBody Map<String, Object> params
+  ){
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("org_data", pingService.getOrgTree());
+    return map;
+  }
   @RequestMapping(value="/Pingpong/orgChart")//, produces="application/text; charset=utf8")
   public Map<String, Object> getOrgChart(
     HttpServletRequest request, HttpSession session, HttpServletResponse response,

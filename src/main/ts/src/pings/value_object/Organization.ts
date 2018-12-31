@@ -4,7 +4,7 @@
  */
 interface IOrganization{
   line:string;
-  id?:number;
+  oid?:number;
   pid?:number;
   name:string;
   title:string;
@@ -15,7 +15,7 @@ interface IOrganization{
 
 export class Organization implements IOrganization{
   line:string;
-  id: number;
+  oid: number;
   pid: number;
   name: string;
   title: string;
@@ -23,15 +23,20 @@ export class Organization implements IOrganization{
   children: IOrganization[] = [];
   public constructor(line:string, id:number, pid:number, name:string, title:string, detail:string){
     this.line = line;
-    this.id = id;
+    this.oid = id;
     this.pid = pid;
     this.name = name;
     this.title = title;
     this.detail = detail;
   }
   public push(o:IOrganization){
+    // console.log(1);
+    // console.log(this);
+    // console.log(2);
+    // console.log(o);
     if( o.line.lastIndexOf(this.line, 0) === 0 )
       if( o.line.indexOf('/',this.line.length + 1) < 0 )
+      // if( o.line.indexOf('/',this.line.length + 1) === o.line.length - 1)
         this.children.push(o);
       else
         this.children.forEach(p=>p.push(o));

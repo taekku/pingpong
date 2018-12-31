@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<c:url value="/assets/css/index.css" var="jstlCss" />
   <link href="${jstlCss}" rel="stylesheet" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>

@@ -65,7 +65,7 @@ export class Service{
       });
   }
   public requestOrgChart(myCallback:(x:any)=>any){
-      const server_url = "/Pingpong/orgChart";
+      const server_url = "/Pingpong/orgChart2";
       let requestData = {
         "ServiceId" : this.id,
         "Ping" : this.ping
@@ -79,9 +79,10 @@ export class Service{
         data: JSON.stringify(requestData),
         success: function (result) {
           let org = result.org_data[0];
-          let root = new Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail);
+          let kk:string = org.ORG_LINE;
+          let root = new Organization(org.ORG_LINE.substring(0,org.ORG_LINE.length -1), org.ID, org.PID, org.NAME, org.TITLE, org.DETAIL);
           result.org_data.slice(1).forEach((org:any) => {
-            root.push(new Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail));
+            root.push(new Organization(org.ORG_LINE.substring(0,org.ORG_LINE.length -1), org.ID, org.PID, org.NAME, org.TITLE, org.DETAIL));
           });
           myCallback(root);
         },
@@ -93,11 +94,10 @@ export class Service{
         console.info('done==>');
       })
       .fail(function( pong ) {
-        console.error( pong);
+        console.info('fail==>');
       })
       .always(function( pong ) {
         console.log("always==>");
-        // this.log(pong);
       });
       return resultData;
   }
