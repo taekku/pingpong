@@ -36,8 +36,8 @@ body {
   display: inline-block;
   top: 10px;
   left: 10px;
-  height: 820px;
-  width: calc(100% - 24px);
+  /* height: 95%;
+  width: calc(100% - 24px); */
   border: 2px dashed #aaa;
   border-radius: 5px;
   overflow: auto;
@@ -71,7 +71,7 @@ body {
       'visibleLevel': 14,
       // 'direction': 'l2r',
       // 'pan': true,
-      'zoom': true,
+      // 'zoom': true,
       'nodeTemplate': nodeTemplate,
       'initCompleted': function ($chart) {
           var $container = $('#chart-container');
