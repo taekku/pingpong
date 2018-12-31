@@ -8,6 +8,7 @@ interface IOrganization{
   pid?:number;
   name:string;
   title:string;
+  detail:string;
   children?: IOrganization[];
   push(o:IOrganization):void;
 }
@@ -18,13 +19,15 @@ export class Organization implements IOrganization{
   pid: number;
   name: string;
   title: string;
+  detail: string;
   children: IOrganization[] = [];
-  public constructor(line:string, id:number, pid:number, name:string, title:string){
+  public constructor(line:string, id:number, pid:number, name:string, title:string, detail:string){
     this.line = line;
     this.id = id;
     this.pid = pid;
     this.name = name;
     this.title = title;
+    this.detail = detail;
   }
   public push(o:IOrganization){
     if( o.line.lastIndexOf(this.line, 0) === 0 )

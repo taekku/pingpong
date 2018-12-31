@@ -79,9 +79,9 @@ export class Service{
         data: JSON.stringify(requestData),
         success: function (result) {
           let org = result.org_data[0];
-          let root = new Organization(org.org_line, org.id, org.pid, org.name, org.title);
-          result.org_data.slice(1).forEach((org:any) => { 
-            root.push(new Organization(org.org_line, org.id, org.pid, org.name, org.title));
+          let root = new Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail);
+          result.org_data.slice(1).forEach((org:any) => {
+            root.push(new Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail));
           });
           myCallback(root);
         },

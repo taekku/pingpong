@@ -2,9 +2,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="ko">
+  <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Organization Chart Plugin</title>
   <!-- <link rel="icon" href="img/logo.png"> -->
   <!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
@@ -18,14 +19,17 @@
 </head>
 <body>
   <div id="chart-container"></div>
-
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/assets/js/jquery.orgchart.js"></script><!-- 2.1.3 -->
   <script type="text/javascript" src="/assets/js/html2canvas.min.js"></script><!-- 0.5.0-beta4 -->
   <script type="text/javascript" src="/assets/js/jspdf.min.js"></script><!-- 1.3.5 -->
   <script type="text/javascript">
-  let sss = new pp.Service("testest");
+  var sss = new pp.Service("testest");
   sss.requestOrgChart(function(data){
+    var nodeTemplate = function(data){
+      return "<div class='title'>" + data.name + "</div>"
+        +"<div class='content'>" + data.title +  "<div class='office'>" + data.detail + "</div></div>";
+    }
     var oc1 = $('#chart-container').orgchart({
       'data' : data,
       'nodeContent': 'title',
@@ -33,6 +37,7 @@
       'exportFilename': 'MyOrgChart',
       'exportFileextension': 'pdf',
       'draggable': true,
+      'nodeTemplate': nodeTemplate,
       'dropCriteria': function($draggedNode, $dragZone, $dropZone) {
         //console.log($draggedNode);
         if($draggedNode.find('.content').text().indexOf('manager') > -1 && $dropZone.find('.content').text().indexOf('engineer') > -1) {

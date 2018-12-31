@@ -376,9 +376,9 @@ var Service = /** @class */ (function () {
             data: JSON.stringify(requestData),
             success: function (result) {
                 var org = result.org_data[0];
-                var root = new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title);
+                var root = new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail);
                 result.org_data.slice(1).forEach(function (org) {
-                    root.push(new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title));
+                    root.push(new Organization_1.Organization(org.org_line, org.id, org.pid, org.name, org.title, org.detail));
                 });
                 myCallback(root);
             },
@@ -10782,13 +10782,14 @@ return jQuery;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Organization = /** @class */ (function () {
-    function Organization(line, id, pid, name, title) {
+    function Organization(line, id, pid, name, title, detail) {
         this.children = [];
         this.line = line;
         this.id = id;
         this.pid = pid;
         this.name = name;
         this.title = title;
+        this.detail = detail;
     }
     Organization.prototype.push = function (o) {
         if (o.line.lastIndexOf(this.line, 0) === 0)
