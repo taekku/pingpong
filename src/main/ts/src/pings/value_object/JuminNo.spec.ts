@@ -31,4 +31,11 @@ describe("JuminNo", ()=>{
     jumin = new JuminNo("7205133382414");
     expect(jumin.birth()).toEqual(new Date("2072-05-13Z+09:00"));
   });
+  it("jumin_no()", ()=>{
+    let jumin:JuminNo;
+    jumin = new JuminNo("7205131382414");
+    expect(jumin.jumin_no()).toEqual("7205131382414");
+    jumin = new JuminNo("6809251835621");
+    expect(jumin.jumin_no()).toEqual("6809251835621");
+  });
 });

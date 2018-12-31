@@ -297,10 +297,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jquery_1 = __importDefault(__webpack_require__(6));
 var Organization_1 = __webpack_require__(7);
 var Service = /** @class */ (function () {
-    function Service(sid, ping) {
+    function Service(myId, ping) {
         if (ping === void 0) { ping = []; }
-        this.sId = "default";
-        this.sId = sid;
+        this.sId = (function () { return function () { return myId; }; })();
         if (ping instanceof Array)
             this.ping = ping;
         else
@@ -308,7 +307,7 @@ var Service = /** @class */ (function () {
     }
     Object.defineProperty(Service.prototype, "id", {
         get: function () {
-            return this.sId;
+            return this.sId();
         },
         enumerable: true,
         configurable: true
@@ -384,7 +383,6 @@ var Service = /** @class */ (function () {
                 myCallback(root);
             },
             beforeSend: function (xhr) {
-                // xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
                 xhr.overrideMimeType("text/plain; charset=utf-8");
             }
         })
@@ -10784,11 +10782,11 @@ return jQuery;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Organization = /** @class */ (function () {
-    function Organization(line, org_id, p_org_id, name, title) {
+    function Organization(line, id, pid, name, title) {
         this.children = [];
         this.line = line;
-        this.org_id = org_id;
-        this.p_org_id = p_org_id;
+        this.id = id;
+        this.pid = pid;
         this.name = name;
         this.title = title;
     }

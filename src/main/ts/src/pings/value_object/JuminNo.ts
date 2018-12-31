@@ -14,18 +14,19 @@ declare var IJuminNo: JuminNoConstructor;
 export { IJuminNo };
 
 export class JuminNo implements IJuminNo {
-  private jumin_no: string;
+  public jumin_no: () => string;
   private _gender: Gender;
   private _validation: boolean = false;
   private _message: string='';
   private _date: Date|undefined;
   constructor(jumin_no:string){
-    this.jumin_no = jumin_no;
+    // this.jumin_no = jumin_no;
+    this.jumin_no = (()=>{return ():string=>{return jumin_no};})();
     switch (jumin_no.substr(6,1)) {
-      case "1": case "3": case "9":
+      case "1": case "3": case "9": case "5": case "7":
         this._gender = Gender.M;
         break;
-      case "2": case "4": case "0":
+      case "2": case "4": case "0": case "6": case "8":
         this._gender = Gender.F;
         break;
       default:
@@ -40,9 +41,9 @@ export class JuminNo implements IJuminNo {
     mm = Number(jumin_no.substring(2,4)) - 1;
     dd = Number(jumin_no.substring(4,6));
     switch (jumin_no.substr(6,1)) {
-      case "1": case "2":
+      case "1": case "2": case "5": case "6":
         yy += 1900; break;
-      case "3": case "4":
+      case "3": case "4": case "7": case "7":
         yy += 2000; break;
       case "9": case "0":
         yy += 1800; break;

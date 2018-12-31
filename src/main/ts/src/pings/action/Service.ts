@@ -3,17 +3,17 @@ import { Ping } from "./Ping";
 import { Organization } from "../value_object/Organization";
 
 export class Service{
-    private sId : string = "default";
+    private sId : ()=>string;
     private ping: Ping[];
-    constructor(sid: string, ping:Ping[]=[]){
-      this.sId = sid;
+    constructor(myId: string, ping:Ping[]=[]){
+      this.sId = (()=>{return ():string=>{return myId};})();
       if( ping instanceof Array )
         this.ping = ping;
       else
         this.ping = [ping];
   }
   get id(){
-      return this.sId;
+      return this.sId();
   }
   public addPing(ping:Ping){
       this.ping.push(ping);

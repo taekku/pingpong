@@ -21,6 +21,7 @@
         "Service": service,
         "myData" : [$("#mycontents").val()]
       };
+      console.log(myData);
       let myAjax = $.ajax({
         url: "/Pingpong",
         type: "POST",
