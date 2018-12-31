@@ -56,7 +56,7 @@ body {
   sss.requestOrgChart(function(data){
     var nodeTemplate = function(data){
       return "<div class='title'>" + data.name + "</div>"
-        +"<div class='content'>" + data.title// +  "<div class='office'>" + data.detail + "</div>"
+        +"<div class='content'>" + data.title +  "<div class='office'>" + data.detail + "</div>"
         +"</div>";
     }
     var oc1 = $('#chart-container').orgchart({
@@ -68,7 +68,7 @@ body {
       'draggable': true,
       'toggleSiblingsResp': true,
       'verticalLevel': 4,
-      'visibleLevel': 4,
+      'visibleLevel': 14,
       // 'direction': 'l2r',
       // 'pan': true,
       'zoom': true,
