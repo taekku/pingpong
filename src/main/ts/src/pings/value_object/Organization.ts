@@ -30,10 +30,6 @@ export class Organization implements IOrganization{
     this.detail = detail;
   }
   public push(o:IOrganization){
-    // console.log(1);
-    // console.log(this);
-    // console.log(2);
-    // console.log(o);
     if( o.line.lastIndexOf(this.line, 0) === 0 )
       if( o.line.indexOf('/',this.line.length + 1) < 0 )
       // if( o.line.indexOf('/',this.line.length + 1) === o.line.length - 1)
