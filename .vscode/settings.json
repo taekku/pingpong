@@ -1,4 +1,3 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
-    //"java.home": "C:\\Program Files\\ojdkbuild\\java-1.8.0-openjdk-1.8.0.191-1"
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
