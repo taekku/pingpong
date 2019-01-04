@@ -388,13 +388,13 @@ var Service = /** @class */ (function () {
             }
         })
             .done(function (pong) {
-            console.info('done==>');
+            // console.info('done==>');
         })
             .fail(function (pong) {
-            console.info('fail==>');
+            // console.info('fail==>');
         })
             .always(function (pong) {
-            console.log("always==>");
+            // console.log("always==>");
         });
         return resultData;
     };
@@ -10792,10 +10792,6 @@ var Organization = /** @class */ (function () {
         this.detail = detail;
     }
     Organization.prototype.push = function (o) {
-        // console.log(1);
-        // console.log(this);
-        // console.log(2);
-        // console.log(o);
         if (o.line.lastIndexOf(this.line, 0) === 0)
             if (o.line.indexOf('/', this.line.length + 1) < 0)
                 // if( o.line.indexOf('/',this.line.length + 1) === o.line.length - 1)
