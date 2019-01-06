@@ -8,11 +8,10 @@
 	<c:url value="/assets/css/index.css" var="jstlCss" />
   <link href="${jstlCss}" rel="stylesheet" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="/assets/js/ping_message.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
-    //$("#myBody").src = "/ping";
-    $("#myBody").attr("src","/ping");
   });
   </script>
 </head>
@@ -20,8 +19,5 @@
     Welcome to the Pingpong.
     ${ message }
     <a href="/ping">Ping</a>
-    <iframe id="myBody" name="myBody" width="100%" height="500">
-
-    </iframe>
   </body>
 </html>
