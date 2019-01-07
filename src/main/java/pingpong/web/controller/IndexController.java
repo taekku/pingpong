@@ -18,12 +18,28 @@ public class IndexController {
       return retVal;
     }
 
-    @RequestMapping(value="/ping", method = RequestMethod.GET)
-    public ModelAndView hello() {
-      ModelAndView retVal = new ModelAndView();
-      retVal.setViewName("ping");
-      retVal.addObject("message", "Hello my boys!");
-      return retVal;
-    }
+  @RequestMapping(value = "/main", method = RequestMethod.GET)
+  public ModelAndView main() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("main");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
+
+  @RequestMapping(value = "/ping", method = RequestMethod.GET)
+  public ModelAndView hello() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("ping");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
+
+  @RequestMapping(value = "/testexcel", method = RequestMethod.GET)
+  public ModelAndView testexcel() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("testexcel");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
   
 }
