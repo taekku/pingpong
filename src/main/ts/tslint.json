@@ -3,7 +3,7 @@
     "extends": [
         "tslint:recommended"
     ],
-    "variable-name": [true, "ban-keywords",],
+    "variable-name": [true, "ban-keywords"],
     "jsRules": {},
     "rules": {},
     "rulesDirectory": []
