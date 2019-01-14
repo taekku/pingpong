@@ -1,15 +1,36 @@
 package pingpong.web.car;
 
+import java.util.Map;
 import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Car {
     static Random random = new Random(1234123);
     private Long id;
     private String name;
-    public Car(String name){
+    private String title;
+    public Car(){
+        super();
+        setId(random.nextLong());
+    }
+    
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title==null?name:title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Car(String name) {
         this.setId(random.nextLong());
         this.setName(name);
     }
