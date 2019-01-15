@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Car {
-    static Random random = new Random(1234123);
+    static Random random = new Random(1);
     private Long id;
     private String name;
     private String title;
