@@ -11,25 +11,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 
 @include mat-core();
 
-$my-theme-primary: mat-palette($mat-cyan);
-$my-theme-accent: mat-palette($mat-teal, 400,  200, 600);
-$my-theme-warn: mat-palette($mat-red);
 
-$my-theme: mat-light-theme(
-  $my-theme-primary,
-  $my-theme-accent,
-  $my-theme-warn
-);
-
-$my-second-theme-primary: mat-palette($mat-purple);
-$my-second-theme-accent: mat-palette($mat-pink);
-$my-second-theme-warn: mat-palette($mat-red);
-
-$my-second-theme: mat-light-theme(
-  $my-second-theme-primary,
-  $my-second-theme-accent,
-  $my-second-theme-warn
-);
+@import './theme/my-theme.scss';
+@import './theme/my-second-theme.scss';
 
 .my-second-theme{
 @include angular-material-theme($my-second-theme);

@@ -17,10 +17,20 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.overlayContainer.getContainerElement().classList.add(this.theme);
   }
-  onThemeChange() {
-    console.log("Here:" + this.theme);
+  onThemeChange(_$event) {
+    // console.log("Here:" + this.theme);
     // this.overlayContainer.getContainerElement().classList.remove();
     // this.overlayContainer.getContainerElement().classList.add(this.theme);
-    console.log(this.overlayContainer.getContainerElement().classList);
+    // if (this.theme === "my-themme") {
+    //   this.overlayContainer.getContainerElement().classList.remove("my-second-theme");
+    // } else {
+    //   this.overlayContainer.getContainerElement().classList.remove("my-theme");
+    // }
+    const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
+    const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => item.includes('-theme'));
+    if (themeClassesToRemove.length) {
+      overlayContainerClasses.remove(...themeClassesToRemove);
+    }
+    overlayContainerClasses.add(this.theme);
   }
 }

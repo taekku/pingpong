@@ -12,7 +12,7 @@
 </div>
 <mat-form-field>
   <mat-select placeholder="Theme" [(ngModel)]="theme"
-    (selectionChange)="onThemeChange()">
+    (selectionChange)="onThemeChange($event)">
     <mat-option value="my-theme">my Theme</mat-option>
     <mat-option value="my-second-theme">second Theme</mat-option>
   </mat-select>

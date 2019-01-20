@@ -1,0 +1,10 @@
+
+$my-theme-primary: mat-palette($mat-cyan);
+$my-theme-accent: mat-palette($mat-teal, 400,  200, 600);
+$my-theme-warn: mat-palette($mat-red);
+
+$my-theme: mat-light-theme(
+  $my-theme-primary,
+  $my-theme-accent,
+  $my-theme-warn
+);
