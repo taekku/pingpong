@@ -8,10 +8,10 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  theme = "my-theme";
+  theme = 'my-theme';
   title = 'angular';
 
-  constructor(private overlayContainer: OverlayContainer){
+  constructor(private overlayContainer: OverlayContainer) {
 
   }
   ngOnInit() {
