@@ -1,6 +1,5 @@
 package pingpong.web.car;
 
-import java.util.Map;
 import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
