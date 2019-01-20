@@ -91,13 +91,13 @@ export class Service{
         }
       })
       .done(function( pong ) {
-        console.info('done==>');
+        // console.info('done==>');
       })
       .fail(function( pong ) {
-        console.info('fail==>');
+        // console.info('fail==>');
       })
       .always(function( pong ) {
-        console.log("always==>");
+        // console.log("always==>");
       });
       return resultData;
   }
