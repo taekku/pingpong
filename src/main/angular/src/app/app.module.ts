@@ -8,6 +8,7 @@ import { myMaterialModule } from './my-material/my-material.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {} from '@angular/material';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,10 @@ import {} from '@angular/material';
     BrowserModule,
     CommonModule,
     FormsModule,
-    myMaterialModule,
     BrowserAnimationsModule,
+
+    myMaterialModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
