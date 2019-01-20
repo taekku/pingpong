@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
-}
+// body { 
+//   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+// }
 
 // @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 // @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
@@ -14,11 +15,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 
 @import './theme/my-theme';
 @import './theme/my-second-theme';
+@import './theme/my-typography-theme';
+
+@import './app/auth/login/login.component.theme';
+
+@mixin my-components-theme($theme){
+  @include pp-login-theme($theme);
+}
 
 .my-second-theme{
-@include angular-material-theme($my-second-theme);
+  @include angular-material-theme($my-second-theme);
+  @include my-components-theme($my-second-theme);
 }
 
 .my-theme {
-@include angular-material-theme($my-theme);
+  @include angular-material-theme($my-theme);
+  @include my-components-theme($my-theme);
 }

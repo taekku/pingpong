@@ -1,0 +1,11 @@
+.wrapper{
+  padding: 2rem;
+  border: 1px solid
+}
+.login{
+  display: flex;
+  flex-direction: column;
+}
+.login > * {
+  width: 100%;
+}

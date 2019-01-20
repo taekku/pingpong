@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule  } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatGridListModule  } from '@angular/material';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @NgModule({
@@ -12,7 +11,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     MatCardModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatFormFieldModule 
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule,
   ]
 })
 export class myMaterialModule { 
