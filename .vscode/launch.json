@@ -43,7 +43,6 @@
       "name": "Debug (Launch)-PingpongApplication<Pingpong>",
       "request": "launch",
       "mainClass": "pingpong.main.PingpongApplication",
-      "projectName": "Pingpong"
     }
   ]
 }
