@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+// @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+// @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$my-theme-primary: mat-palette($mat-cyan);
+$my-theme-accent: mat-palette($mat-teal, 400,  200, 600);
+$my-theme-warn: mat-palette($mat-red);
+
+$my-theme: mat-light-theme(
+  $my-theme-primary,
+  $my-theme-accent,
+  $my-theme-warn
+);
+
+$my-second-theme-primary: mat-palette($mat-purple);
+$my-second-theme-accent: mat-palette($mat-pink);
+$my-second-theme-warn: mat-palette($mat-red);
+
+$my-second-theme: mat-light-theme(
+  $my-second-theme-primary,
+  $my-second-theme-accent,
+  $my-second-theme-warn
+);
+
+.my-second-theme{
+@include angular-material-theme($my-second-theme);
+}
+
+.my-theme {
+@include angular-material-theme($my-theme);
+}

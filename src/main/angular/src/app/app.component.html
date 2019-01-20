@@ -1,0 +1,23 @@
+<div [class]="theme">
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+<mat-card>Simple card
+<div>
+  <button mat-raised-button color="primary">Primary</button>
+  <button mat-raised-button color="accent">Accent</button>
+  <button mat-raised-button color="warn">Hello Material</button>
+</div>
+<mat-form-field>
+  <mat-select placeholder="Theme" [(ngModel)]="theme"
+    (selectionChange)="onThemeChange()">
+    <mat-option value="my-theme">my Theme</mat-option>
+    <mat-option value="my-second-theme">second Theme</mat-option>
+  </mat-select>
+</mat-form-field>
+</mat-card>
+
+<router-outlet></router-outlet>
+</div>
