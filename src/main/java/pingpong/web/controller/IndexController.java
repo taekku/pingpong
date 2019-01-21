@@ -41,5 +41,13 @@ public class IndexController {
     retVal.addObject("message", "Hello my boys!");
     return retVal;
   }
+
+  @RequestMapping(value = "/workschedule", method = RequestMethod.GET)
+  public ModelAndView workschedule() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("workschedule");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
   
 }
