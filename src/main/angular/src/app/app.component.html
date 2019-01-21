@@ -1,31 +1,22 @@
 <div [class]="theme">
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    Welcome to {{ title }}!<pp-menu-hot></pp-menu-hot>
   </h1>
+  
 </div>
+<router-outlet></router-outlet>
+<mat-card>
+  <pp-menu-left></pp-menu-left>
+</mat-card>
 <mat-card>
 <mat-form-field>
   <mat-select placeholder="Theme" [(ngModel)]="theme" (selectionChange)="onThemeChange($event)">
-    <mat-option value="my-theme">My Theme</mat-option>
-    <mat-option value="my-second-theme">My second Theme</mat-option>
+    <mat-option *ngFor="let theme of themes" [value]="theme">
+      {{ theme }}
+    </mat-option>
   </mat-select>
 </mat-form-field>
 </mat-card>
-<mat-card>Simple card
-<div>
-  <button mat-raised-button color="primary"> 저장 </button>
-  <button mat-raised-button color="primary"> 조회 </button>
-  <button mat-raised-button color="primary"> 삭제 </button>
-  <button mat-raised-button color="accent">Accent 강조</button>
-  <button mat-raised-button color="warn">Hello Material 주의</button>
-</div>
-</mat-card>
 
-<mat-card>
-  <pp-login>
-    <h1>ng-content h1</h1>
-  </pp-login>
-</mat-card>
-<router-outlet></router-outlet>
 </div>

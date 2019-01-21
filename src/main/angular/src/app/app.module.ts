@@ -7,12 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { myMaterialModule } from './my-material/my-material.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {} from '@angular/material';
 import { AuthModule } from './auth/auth.module';
+import { MenuLeftComponent } from './menu-left/menu-left.component';
+import { MatTreeModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { HomeComponent } from './home/home.component';
+import { MenuHotComponent } from './menu-hot/menu-hot.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuLeftComponent,
+    HomeComponent,
+    MenuHotComponent
   ],
   imports: [
     AppRoutingModule,
@@ -22,7 +28,10 @@ import { AuthModule } from './auth/auth.module';
     BrowserAnimationsModule,
 
     myMaterialModule,
-    AuthModule
+    AuthModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

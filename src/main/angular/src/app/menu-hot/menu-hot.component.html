@@ -1,0 +1,17 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon color="primary">more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="">
+    <mat-icon>power_setting_new</mat-icon>
+    <span>Home</span>
+  </button>
+  <button mat-menu-item routerLink="register">
+    <mat-icon>voicemail</mat-icon>
+    <span>Register</span>
+  </button>
+  <button mat-menu-item routerLink="login">
+    <mat-icon>notifications_off</mat-icon>
+    <span>Login</span>
+  </button>
+</mat-menu>

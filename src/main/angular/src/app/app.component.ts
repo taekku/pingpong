@@ -9,6 +9,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class AppComponent implements OnInit {
   theme = 'my-theme';
+  themes = ['my-theme', 'my-second-theme'];
   title = 'angular';
 
   constructor(private overlayContainer: OverlayContainer) {
