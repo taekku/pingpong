@@ -7,52 +7,72 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <c:url value="/assets/css/index.css" var="jstlCss" />
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> -->
   <link href="${jstlCss}" rel="stylesheet" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
   <script type="text/javascript">
-  Date.prototype.getWeekOfMonth = function () {
+    Date.prototype.getWeekOfMonth = function () {
       var onejan = new Date(this.getFullYear(), 0, 1);
       return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    };
+    getDateId = function (_date) {
+      const formatStr = "";
+      return _date.getFullYear() + formatStr + (_date.getMonth() < 9 ? "0" : "") + (_date.getMonth() + 1)
+              + formatStr + (_date.getDate()<10?"0":"") + _date.getDate();
+    }
+    getMonthId = function (_date) {
+      const formatStr = "";
+      return _date.getFullYear() + formatStr + (_date.getMonth() < 9 ? "0" : "") + (_date.getMonth() + 1);
     }
     $(document).ready(function () {
       // todo-item 이름을 가진 컴포넌트를 정의합니다
       Vue.component('todo-item', {
         template: '<li>할일 항목 하나입니다.</li>'
       });
-      function getCalendar(year,month, day){
+      function getCalendar(year, month, day) {
         let today = new Date(year, month, day, 0, 0, 0);
-        let firstDay = new Date(year, month, 1, 0, 0, 0);
-        let weekFirstDay = new Date(firstDay);
         let weekNum = today.getWeekOfMonth();
-        weekFirstDay.setDate(weekFirstDay.getDate() - weekFirstDay.getDay());
-        // console.log(today);
-        // console.log(firstDay);
-        // console.log(weekFirstDay);
-        // console.log("getDay():" + firstDay.getDay());
+        let retrieveDate = new Date(year, month, 1, 0, 0, 0);
+        retrieveDate.setDate(retrieveDate.getDate() - retrieveDate.getDay());
         let calendar = [];
-        for (let perWeek = 0; perWeek < 6 && (perWeek===0 || today.getMonth()===weekFirstDay.getMonth()); perWeek++) {
+        for (let perWeek = 0; perWeek < 6 && (perWeek === 0 || today.getMonth() === retrieveDate.getMonth()); perWeek++) {
           let week = [];
           for (let perDay = 0; perDay < 7; perDay++) {
             week.push({
-              day_id: weekFirstDay.getFullYear() + "-" + (weekFirstDay.getMonth()+1) + "-" + weekFirstDay.getDate(),
-              monthDay: weekFirstDay.getDay(), // 요일
-              day: weekFirstDay.getDate(), // 날짜
-              isToday: false,
-              isCurMonth: today.getMonth()===weekFirstDay.getMonth(),
-              isCurWeek: (today.getMonth() === weekFirstDay.getMonth()) && (weekNum ===  weekFirstDay.getWeekOfMonth()),
+              day_id: getDateId(retrieveDate),
+              month_id: getMonthId(retrieveDate),
+              monthDay: retrieveDate.getDay(), // 요일
+              day: retrieveDate.getDate(), // 날짜
+              isToday: (today.getMonth() === retrieveDate.getMonth()) && (today.getDate() === retrieveDate.getDate()),
+              isCurMonth: today.getMonth() === retrieveDate.getMonth(),
+              isCurWeek: (today.getMonth() === retrieveDate.getMonth()) && (weekNum === retrieveDate.getWeekOfMonth()),
               weekDay: perDay,
-              weekNum: weekFirstDay.getWeekOfMonth(),
-              date: new Date(weekFirstDay.getFullYear(), weekFirstDay.getMonth(), weekFirstDay.getDay()),
+              weekNum: retrieveDate.getWeekOfMonth(),
+              date: new Date(retrieveDate.getFullYear(), retrieveDate.getMonth(), retrieveDate.getDate(), 0, 0, 0),
+              message: '',
               events: null
             });
             // monthViewStartDate.add(1, 'day');
-            weekFirstDay.setDate(weekFirstDay.getDate() + 1);
+            retrieveDate.setDate(retrieveDate.getDate() + 1);
           }
           calendar.push(week);
         }
         return calendar
+      }
+
+      function getWorkWeek(_year, _month, _date){
+        let work_date = new Date(_year, _month, _date, 0, 0, 0);
+        let start_week = work_date;
+        start_week.setDate(start_week.getDate() - start_week.getDay());
+        let days = [];
+        for(let i=0;i<7;i++){
+          if( _month === start_week.getMonth() )
+            days.push(new Date(start_week));
+          start_week.setDate(start_week.getDate() + 1);
+        }
+        return days;
       }
       
       var navYear, navMonth, navDate;
@@ -61,6 +81,7 @@
       navMonth = date1.getMonth();
       navDate = date1.getDate();
       var myCalendar = getCalendar(navYear, navMonth, navDate);
+      var workWeek = getWorkWeek(navYear, navMonth, navDate + 7 - date1.getDay());
       var app = new Vue({
         el: '#app',
         data: {
@@ -70,7 +91,37 @@
           dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
           monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
           calendar: myCalendar,
-          checkedDate: []
+          workWeek: workWeek,
+          checkedDate: [],
+          time_kind: [
+            { kind: 1, fromTime: '08:00', toTime: '17:30' },
+            { kind: 2, fromTime: '08:30', toTime: '18:00' },
+            { kind: 3, fromTime: '09:00', toTime: '18:30' },
+          ],
+          select_time_kind: null,
+          fromTime: '0:00',
+          toTime: '0:00',
+          fromTimeOut: '0:00',
+          toTimeOut: '0:00',
+          monitor_time: '',
+          monitor_times: [
+            { text: '선택하세요', value: "" },
+            { text: '19시', value: "19" },
+            { text: '20시', value: "20" },
+            { text: '21시', value: "21" },
+            { text: '22시', value: "22" },
+          ],
+          select_rest_kind: '00',
+          rest_kind: [
+            { text: '추가휴게입력', value: '00'},
+            { text: '휴게', value: '01'}
+          ],
+          work_accept_time: '',
+          work_rest_time: '',
+          add_rest_from: '',
+          add_rest_to: '',
+          real_work_time: '',
+          real_rest_off_time: ''
         },
         methods: {
           greet: function(message, event){
@@ -81,9 +132,80 @@
             // });
             console.log("asdf");
             console.log(this.checkedDate);
+            console.log(this.workWeek);
           },
-          getWeekName(date){
+          is_input_week: function(day){
+            let isWeek = false;
+            this.workWeek.forEach(function(element){
+              if( day.getTime() == element.getTime() )
+                isWeek = true;
+            });
+            return isWeek;
+          },
+          check_std_week: function(){
+            this.checkedDate = [];
+            var newCheckDate = [];
+            this.workWeek.forEach(function(element){
+              if( element.getDay() > 0 && element.getDay() < 6){
+                newCheckDate.push(getDateId(element));
+              }
+            });
+            this.checkedDate = newCheckDate;
+          },
+          change_time_kind: function(){
+            var sTimeKind = this.select_time_kind;
+            var selectTime;
+            this.time_kind.forEach(function(t){
+              if( t.kind == sTimeKind ){
+                selectTime = t;
+              }
+            });
+            if( selectTime ){
+              this.fromTime = selectTime.fromTime;
+              this.toTime = selectTime.toTime;
+            }
+          },
+          calculateWorkTime: function(){
+            console.log('Dummy Work Calculate:');
+            this.work_accept_time = '08:00';
+            this.work_rest_time = '01:30';
+          },
+          calculateRealWorkTime: function(){
+            console.log('Dummy Work Calculate:');
+            this.real_work_time = '08:00';
+            this.real_rest_off_time = '01:30';
+          },
+          getWeekName: function(date){
             return this.dayNamesMin(date.getDay());
+          },
+          button_save: function () {
+            console.log("save button click");
+          },
+          button_delete: function () {
+            console.log("delete button click");
+          },
+
+          check_s_date: function(day, event){
+            // console.log("check_s_date");
+            // console.log(event);
+            if( this.is_input_week(day.date) ){
+              // console.log(day);
+              let isExists = false;
+              this.checkedDate.forEach( function(element) {
+                if( element == day.day_id )
+                  isExists = true;
+              });
+              // console.log( "isExists:" + isExists );
+              if( isExists ) {
+                this.checkedDate = this.checkedDate.filter( function(element) {
+                  return element !== day.day_id
+                });
+              } else {
+                this.checkedDate.push(day.day_id);
+              }
+            } else {
+              // console.log('체크하면 안되는 주:' + day.day_id);
+            }
           }
         }
         // watch:{
@@ -103,52 +225,342 @@
     });
   </script>
   <style>
+body{
+  font-size: 1.1em;
+}
     .other_month{
-      color:beige
+      color:rgb(115, 158, 156)
     }
     .this_month {
-      color: darkcyan
+      color: rgb(16, 14, 165)
     }
-    .checkbox-round {
+
+.checkbox-round {
     width: 1.3em;
     height: 1.3em;
     background-color: white;
     border-radius: 50%;
     vertical-align: middle;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(65, 64, 64);
     -webkit-appearance: none;
     outline: none;
     cursor: pointer;
 }
-
+.checkbox-double{
+  border: 4px double;
+}
 .checkbox-round:checked {
     background-color: darkcyan;
+}
+
+table.cal_table {
+    border: 1px solid #444444;
+    border-collapse: collapse;
+}
+.cal_table th, .cal_table td {
+  border: 1px solid #444444;
+  padding: 0px;
+}
+input.class_time{
+  text-align: center;
+  width: 4rem;
+}
+
+.progress-bar-vertical {
+  width: 35px;
+  min-height: 286px;
+  margin-right: 20px;
+  border-radius: 10px !important;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.progress-bar-vertical .progress-bar {
+  width: 100%;
+  height: 0;
+  -webkit-transition: height 0.6s ease;
+  -o-transition: height 0.6s ease;
+  transition: height 0.6s ease;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.progress {
+  overflow: hidden;
+  height: 20px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #337ab7;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+.progress-striped .progress-bar,
+.progress-bar-striped {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+.progress.active .progress-bar,
+.progress-bar.active {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+.progress-bar-success {
+  background-color: #5cb85c;
+}
+.progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-info {
+  background-color: #5bc0de;
+}
+.progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-warning {
+  background-color: #f0ad4e;
+}
+.progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-danger {
+  background-color: #d9534f;
+}
+.progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
   </style>
 </head>
 
 <body>
+
   <p>Test Vue.js</p>
+
   <div id="app" style="width:100%;">
-    <table style="width:100%">
-      <tr>
-        <th v-for="week in dayNamesMin">{{week}}</th>
-      </tr>
-      <tr v-for="week in calendar">
-        <td v-for="day in week" style="text-align:center">
-          <div style="width:50%">
-            <input type="checkbox" v-if="day.isCurWeek" v-bind:class="['checkbox-round']" v-bind:value="day.day_id" v-model="checkedDate">
-          </div>
-          <div v-bind:class="[day.isCurMonth?'this_month':'other_month']" style="height:50px; text-align: right" style="width:50%">
-            {{ day.day }}
-          </div>
-        </td>
-      </tr>
-    </table>
-    <button v-on:click="greet('asdf', $event)"> Greet </button>
-    {{ checkedDate }}
+    <div>
+      <table style="width:70%;float: left; " class="cal_table">
+        <tr>
+          <th v-for="week in dayNamesMin" style="width: 14%">{{week}}</th>
+        </tr>
+        <tr v-for="week in calendar">
+          <td v-for="day in week" style="width: 14%">
+              <div style="float:left; width:10%;">
+                <input type="checkbox" v-if="is_input_week(day.date)" v-bind:class="['checkbox-round', {'checkbox-double':day.isToday}]" v-bind:value="day.day_id" v-model="checkedDate">
+              </div>
+              <div v-bind:class="[day.isCurMonth?'this_month':'other_month']"
+                style="text-align: right;width: 90%; float: right;" v-on:click="check_s_date(day, $event)">
+                {{ day.day }}
+              </div>
+            <div style="width:100%; height:50px; text-align: center; clear: both;" v-on:click="check_s_date(day, $event)">
+              {{ day.message }}
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table style="width:30%;float: right; ">
+        <tr>
+          <td>
+            <div>
+              최대근무가능H:
+              <br>
+              소정근로시간:
+              <br>
+              1주차 권장진도율 40H:
+              <br>
+              누적근무설정시간 27:
+            </div>
+
+
+<div style="height: 300px;">
+  <div class="progress progress-bar-vertical">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+      aria-valuemax="100" style="height: 30%;">
+      <span class="sr-only">60% Complete</span>
+    </div>
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="10" aria-valuemin="0"
+      aria-valuemax="100" style="height: 10%;">
+      <span class="sr-only">10% Complete</span>
+    </div>
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+      style="height: 20%;">
+      <span class="sr-only">20% Complete</span>
+    </div>
   </div>
-  ${ message }
+</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="width: 100%; float: none">
+      HI
+    </div>
+    <div style="width: 100%; float: none">
+      <div style="width: 60%; float: left;">
+
+        <table style="width: 100%">
+          <tr>
+            <td>
+              선택된 날짜: {{ checkedDate }}
+            </td>
+            <td>
+              <button v-on:click="check_std_week()"> 평일 전체 선택 </button>
+            </td>
+          </tr>
+        </table>
+        <table style="width: 100%">
+          <tr>
+            <th style="width: 8em; text-align: left">
+              시간선택
+            </th>
+            <td v-for="time of time_kind" style="width: 25%;">
+              <input type="radio" v-bind:id="'time_kind' + time.kind" v-bind:value="time.kind" v-model="select_time_kind" v-on:change="change_time_kind">
+              <label v-bind:for="'time_kind' + time.kind">
+                {{ time.fromTime }} ~ {{ time.toTime }}
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 8em; text-align: left">사내근무시간</th>
+            <td v-bind:colspan="time_kind.length">
+              <input type="text" v-model="fromTime" style="text-align: center; width: 4em;">
+              ~
+              <input type="text" v-model="toTime" style="text-align: center; width: 4em;">
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 8em; text-align: left">출장/외근</th>
+            <td v-bind:colspan="time_kind.length">
+              <input type="text" v-model="fromTimeOut" style="text-align: center; width: 4em;">
+              ~
+              <input type="text" v-model="toTimeOut" style="text-align: center; width: 4em;">
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 8em; text-align: left">
+              시간外 라이브방송 모니터링
+              <br>
+              <span style="font-size: 0.5em;">* 방송MD의 경우에만 해당</span>
+            </th>
+            <td v-bind:colspan="time_kind.length">
+              <select v-model="monitor_time">
+                <option v-for="option in monitor_times" v-bind:value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+              <br>
+              <span style="font-size: 0.5em;">* 1개 PGM당 최대 2H인정</span>
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 8em; text-align: left">
+          
+            </th>
+            <td v-bind:colspan="time_kind.length">
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 50%;">
+                    <ul>
+                      <li>근무 인정시간 : {{ work_accept_time }} </li>
+                      <li>의무 휴게시간 : {{ work_rest_time }} </li>
+                    </ul>
+                  </td>
+                  <td style="width: 50%;">
+                    <button v-on:click="calculateWorkTime()">근무/휴게시간계산</button>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 8em; text-align: left">
+              추가휴게 입력
+            </th>
+            <td v-bind:colspan="time_kind.length">
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 30%;">
+                    <select v-model="select_rest_kind">
+                      <option v-for="option in rest_kind" v-bind:value="option.value">
+                        {{ option.text }}
+                      </option>
+                    </select>
+                  </td>
+                  <td style="width: 60%;">
+                    <input v-model="add_rest_from" class="class_time">
+                    ~
+                    <input v-model="add_rest_to" class="class_time">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <table style="width: 100%">
+            <tr>
+              <th>근무시간</th>
+              <td>{{ real_work_time }}</td>
+              <th>휴게/OFF</th>
+              <td>{{ real_rest_off_time }}</td>
+              <th>
+                <button v-on:click="calculateRealWorkTime">근무시간계산</button>
+              </th>
+            </tr>
+          </table>
+        </div>
+        <div style="font-size: 0.8em">
+        </div>
+        <button v-on:click="button_delete('asdf', $event)"> 삭제 </button>
+        <button v-on:click="button_save('asdf', $event)"> 저장 </button>
+    </div>
+    <div style="width: 40%; float: right;">
+      <div style="width: 100%; height: 100%; border: 1px solid rgb(65, 64, 64)">
+        <table>
+          <tr>
+            <td>
+              여기에 설명이 죽있으면 좋겠습니다.
+            </td>
+          </tr>
+        </table>
+        <button v-on:click="button_delete('asdf', $event)"> 근무등록 </button>
+        <button v-on:click="button_save('asdf', $event)"> 등록취소 </button>
+      </div>
+    </div>
+    </div>
+  </div>
 </body>
 
 </html>
