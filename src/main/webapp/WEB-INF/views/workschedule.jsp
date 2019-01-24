@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- @ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" --%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <c:url value="/assets/css/index.css" var="jstlCss" />
+  <%-- c:url value="/assets/css/index.css" / --%>
 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> -->
-  <link href="${jstlCss}" rel="stylesheet" />
+  <%-- link href="${jstlCss}" rel="stylesheet" / --%>
+  <link href="/assets/css/index.css" />
   <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="/assets/js/ping_bundle.js"></script>
@@ -129,7 +130,7 @@
             myWork: 27.5,
           },
           work_rate: {
-            monthMax: 10,
+            //monthMax: 10,
             monthStd: 10,
             weekStd: 10,
             myWork: 10
@@ -148,6 +149,7 @@
           // barColor: ["#f0ad4e", "#5cb85c", "#d9534f"],
           barColor: ["#f0ad4e", "#5cb85c", "#d9534f"],
           workTitle: ["", "", ""],
+          weekCount: 1,
 
           title1: function(){ return "누적근무설정시간: " + this.work_hours.myWork + "H"; },
           ttile2: "1주차 권장진도율: ",
@@ -201,8 +203,14 @@
               this.toTime = selectTime.toTime;
             }
           },
-          changeHeight: function( addHeight ){
-            this.work_hours.myWork = this.work_hours.myWork + addHeight;
+          changeWorkHour: function( addMy, addWeek, addMonth ){
+            this.work_hours.myWork = this.work_hours.myWork + addMy;
+            this.work_hours.weekStd = this.work_hours.weekStd + addWeek;
+            this.work_hours.monthStd = this.work_hours.monthStd + addMonth;
+            if( this.work_hours.myWork < 0 )
+              this.work_hours.myWork = 0;
+            if( this.work_hours.myWork > this.work_hours.monthMax )
+              this.work_hours.myWork = this.work_hours.monthMax;
             this.calRate();
 
             //this.draw_title();
@@ -217,10 +225,10 @@
           calRate: function(){
             this.work_title.monthMax = "최대근무가능H: " + this.work_hours.monthMax + "H";
             this.work_title.monthStd = "소정근로시간: " + this.work_hours.monthStd + "H";
-            this.work_title.weekStd = "1주차 권장진도율: " + this.work_hours.weekStd + "H";
+            this.work_title.weekStd = this.weekCount + "주차 권장진도율: " + this.work_hours.weekStd + "H";
             this.work_title.myWork = "누적근무설정시간: " + this.work_hours.myWork + "H";
 
-            this.work_rate.monthMax = this.work_hours.monthMax / this.work_hours.monthMax * 100;
+            //this.work_rate.monthMax = this.work_hours.monthMax / this.work_hours.monthMax * 100;
             this.work_rate.monthStd = this.work_hours.monthStd / this.work_hours.monthMax * 100;
             this.work_rate.weekStd = this.work_hours.weekStd / this.work_hours.monthMax * 100;
             this.work_rate.myWork = this.work_hours.myWork / this.work_hours.monthMax * 100;
@@ -237,12 +245,8 @@
             this.myHeight1 = sortable[0][1];
             this.myHeight2 = sortable[1][1] - this.myHeight1;
             this.myHeight3 = sortable[2][1] - this.myHeight2 - this.myHeight1;
-            this.myHeight4 = sortable[3][1] - this.myHeight3 - this.myHeight2 - this.myHeight1;
-            console.log("h1:" + this.myHeight1 + ":" + sortable[0][0] + ":" + this.work_hours[sortable[0][0]]);
-            console.log("h2:" + this.myHeight2 + ":" + sortable[1][0] + ":" + this.work_hours[sortable[1][0]]);
-            console.log("h3:" + this.myHeight3 + ":" + sortable[2][0] + ":" + this.work_hours[sortable[2][0]]);
+            //this.myHeight4 = sortable[3][1] - this.myHeight3 - this.myHeight2 - this.myHeight1;
 
-            
             this.workTitle[0] = this.work_title[sortable[0][0]];
             this.workTitle[1] = this.work_title[sortable[1][0]];
             this.workTitle[2] = this.work_title[sortable[2][0]];
@@ -262,9 +266,9 @@
             }, delayInMilliseconds);
           },
           draw_title: function(){
-
+console.log("Draw_title");
             var title_height = $("#myTitle0").height() / 2;
-            var t_height = $("#myTitle0").height();
+            var font_height = $("#myTitle0").height() - 2;
 
             var g1_top = $("#myG1").offset().top;
             var g1_height = $("#myG1").height();
@@ -275,15 +279,20 @@
             var t0_top = g1_top + g1_height - title_height;
 
             var t1_top = g1_top - title_height;  // title1
-            console.log("If Height:");
-            console.log(t0_top - t1_top);
-            console.log("If Height2:");
-            console.log(t_height);
-            // if( t0_top - t1_top < g1_height)
-            //   t1_top = t1_top - (t0_top - t1_top + g1_height);
+            if( t0_top - t1_top < font_height )
+              t1_top = t0_top -  font_height;
+
             var t2_top = g2_top - title_height;
+            if( t1_top - t2_top < font_height)
+              t2_top = t1_top - font_height;
+
             var t3_top = g3_top - title_height;
+            if( t2_top - t3_top < font_height)
+              t3_top = t2_top - font_height;
+            
             var t4_top = gt_top - title_height;
+            if( t3_top - t4_top < font_height)
+              t3_top = t4_top + font_height;
 
             $("#myTitle0").offset({ top: t0_top });
             $("#myTitle1").offset({ top: t1_top });
@@ -347,8 +356,16 @@
       //   console.log(oldVal);
       // })
       //app.message = "asdf";
+
+      // 초기값 Setting
+      app.work_hours = {
+        monthMax: 226,
+        monthStd: 174,
+        weekStd: 80,
+        myWork: 30
+      };
+      app.weekCount = 2;
       app.calRate();
-      //app.draw_title();
     });
   </script>
   <style>
@@ -496,6 +513,9 @@ input.class_time{
 
   <div id="app" style="width:100%;">
     <div>
+      <div>
+        년 월
+      </div>
       <table style="width:70%;float: left; " class="cal_table">
         <tr>
           <th v-for="week in dayNamesMin" style="width: 14%">{{week}}</th>
@@ -517,7 +537,7 @@ input.class_time{
       </table>
       <table style="width:30%;float: right; ">
         <tr>
-          <td id="myTable1" style="text-align: right; vertical-align: text-top; font-size: small">
+          <td id="myTable1" style="text-align: right; vertical-align: text-top; font-size: medium">
             <div id="myTitle0" style="position: relative; left: 0px; top: -10px">0H</div>
             <div id="myTitle1" style="position: relative; left: 0px; top: -10px">{{ workTitle[0] }}</div>
             <div id="myTitle2" style="position: relative; left: 0px; top: -10px">{{ workTitle[1] }}</div>
@@ -542,7 +562,7 @@ input.class_time{
 </td>
 <td id="myTable2">
 
-<div id="myGT" style="height: 400px;">
+<div id="myGT" style="height: 350px;">
   <div id="myGround" class="progress progress-bar-vertical">
     <div id="myG1" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0"
       aria-valuemax="100" v-bind:style="{height: myHeight1 + '%', 'background-color': barColor[0]}"
@@ -700,15 +720,14 @@ input.class_time{
     </div>
     </div>
       <div style="float: unset">
-        {{ myHeight }}
-        <button v-on:click="changeHeight(10)">하하</button>
-        <button v-on:click="changeHeight(-10)">하하</button>
-        {{ work_rate  }}
-        {{ title1() }}
-        {{ myHeight1 }}
-        {{ myHeight2 }}
-        {{ myHeight3 }}
-        {{ myHeight4 }}
+          <button v-on:click="changeWorkHour(10, 0, 0)">근무시간 +10H</button>
+          <button v-on:click="changeWorkHour(-10, 0, 0)">근무시간 -10H</button>
+<br/>
+          <button v-on:click="changeWorkHour(0, 10, 0)">권장진도율 +10H </button>
+          <button v-on:click="changeWorkHour(0, -10, 0)">권장진도율 -10H </button>
+<br/>
+          <button v-on:click="changeWorkHour(0, 0, 10)"> 소정근로시간 +10H </button>
+          <button v-on:click="changeWorkHour(0, 0, -10)"> 소정근로시간 -10H </button>
       </div>
   </div>
 </body>
