@@ -121,7 +121,43 @@
           add_rest_from: '',
           add_rest_to: '',
           real_work_time: '',
-          real_rest_off_time: ''
+          real_rest_off_time: '',
+          work_hours: {
+            monthMax: 227,
+            monthStd: 136,
+            weekStd: 40.5,
+            myWork: 27.5,
+          },
+          work_rate: {
+            monthMax: 10,
+            monthStd: 10,
+            weekStd: 10,
+            myWork: 10
+          },
+          work_title: {
+            monthMax: '',
+            monthStd: '',
+            weekStd: '',
+            myWork: ''
+          },
+          work_color: {
+            monthStd: "#d9534f",
+            weekStd: "#5cb85c",
+            myWork: "#f0ad4e"
+          },
+          // barColor: ["#f0ad4e", "#5cb85c", "#d9534f"],
+          barColor: ["#f0ad4e", "#5cb85c", "#d9534f"],
+          workTitle: ["", "", ""],
+
+          title1: function(){ return "누적근무설정시간: " + this.work_hours.myWork + "H"; },
+          ttile2: "1주차 권장진도율: ",
+          ttile3: "소정근로시간: ",
+          ttile4: "최대근무가능H: ",
+          myHeight: 10,
+          myHeight1: 10,
+          myHeight2: 20,
+          myHeight3: 30,
+          myHeight4: 10,
         },
         methods: {
           greet: function(message, event){
@@ -130,9 +166,9 @@
             // this.checkedDate.array.forEach(element => {
             //   console.log("hi:" + element);
             // });
-            console.log("asdf");
-            console.log(this.checkedDate);
-            console.log(this.workWeek);
+            // console.log("asdf");
+            // console.log(this.checkedDate);
+            // console.log(this.workWeek);
           },
           is_input_week: function(day){
             let isWeek = false;
@@ -164,6 +200,97 @@
               this.fromTime = selectTime.fromTime;
               this.toTime = selectTime.toTime;
             }
+          },
+          changeHeight: function( addHeight ){
+            this.work_hours.myWork = this.work_hours.myWork + addHeight;
+            this.calRate();
+
+            //this.draw_title();
+            var delayInMilliseconds = 500; // 0.5 second
+            var drawFunc = this.draw_title;
+
+            setTimeout( function(){
+              drawFunc();
+            }, delayInMilliseconds);
+
+          },
+          calRate: function(){
+            this.work_title.monthMax = "최대근무가능H: " + this.work_hours.monthMax + "H";
+            this.work_title.monthStd = "소정근로시간: " + this.work_hours.monthStd + "H";
+            this.work_title.weekStd = "1주차 권장진도율: " + this.work_hours.weekStd + "H";
+            this.work_title.myWork = "누적근무설정시간: " + this.work_hours.myWork + "H";
+
+            this.work_rate.monthMax = this.work_hours.monthMax / this.work_hours.monthMax * 100;
+            this.work_rate.monthStd = this.work_hours.monthStd / this.work_hours.monthMax * 100;
+            this.work_rate.weekStd = this.work_hours.weekStd / this.work_hours.monthMax * 100;
+            this.work_rate.myWork = this.work_hours.myWork / this.work_hours.monthMax * 100;
+            var maxWork = this.work_rate;
+            var sortable = [];
+            for (var work in maxWork) {
+              sortable.push([work, maxWork[work]]);
+            }
+
+            sortable.sort(function (a, b) {
+              return a[1] - b[1];
+            });
+            console.log(sortable);
+            this.myHeight1 = sortable[0][1];
+            this.myHeight2 = sortable[1][1] - this.myHeight1;
+            this.myHeight3 = sortable[2][1] - this.myHeight2 - this.myHeight1;
+            this.myHeight4 = sortable[3][1] - this.myHeight3 - this.myHeight2 - this.myHeight1;
+            console.log("h1:" + this.myHeight1 + ":" + sortable[0][0] + ":" + this.work_hours[sortable[0][0]]);
+            console.log("h2:" + this.myHeight2 + ":" + sortable[1][0] + ":" + this.work_hours[sortable[1][0]]);
+            console.log("h3:" + this.myHeight3 + ":" + sortable[2][0] + ":" + this.work_hours[sortable[2][0]]);
+
+            
+            this.workTitle[0] = this.work_title[sortable[0][0]];
+            this.workTitle[1] = this.work_title[sortable[1][0]];
+            this.workTitle[2] = this.work_title[sortable[2][0]];
+
+            this.barColor[0] = this.work_color[sortable[0][0]];
+            this.barColor[1] = this.work_color[sortable[1][0]];
+            this.barColor[2] = this.work_color[sortable[2][0]];
+
+            console.log(this.workTitle);
+
+
+            var delayInMilliseconds = 500; // 0.5 second
+            var drawFunc = this.draw_title;
+
+            setTimeout(function () {
+              drawFunc();
+            }, delayInMilliseconds);
+          },
+          draw_title: function(){
+
+            var title_height = $("#myTitle0").height() / 2;
+            var t_height = $("#myTitle0").height();
+
+            var g1_top = $("#myG1").offset().top;
+            var g1_height = $("#myG1").height();
+            var g2_top = $("#myG2").offset().top;
+            var g3_top = $("#myG3").offset().top;
+            var gt_top = $("#myGround").offset().top;
+
+            var t0_top = g1_top + g1_height - title_height;
+
+            var t1_top = g1_top - title_height;  // title1
+            console.log("If Height:");
+            console.log(t0_top - t1_top);
+            console.log("If Height2:");
+            console.log(t_height);
+            // if( t0_top - t1_top < g1_height)
+            //   t1_top = t1_top - (t0_top - t1_top + g1_height);
+            var t2_top = g2_top - title_height;
+            var t3_top = g3_top - title_height;
+            var t4_top = gt_top - title_height;
+
+            $("#myTitle0").offset({ top: t0_top });
+            $("#myTitle1").offset({ top: t1_top });
+            $("#myTitle2").offset({ top: t2_top });
+            $("#myTitle3").offset({ top: t3_top });
+            $("#myTitle4").offset({ top: t4_top });
+            // console.log($("#myTitle0").position());
           },
           calculateWorkTime: function(){
             console.log('Dummy Work Calculate:');
@@ -220,8 +347,8 @@
       //   console.log(oldVal);
       // })
       //app.message = "asdf";
-
-
+      app.calRate();
+      //app.draw_title();
     });
   </script>
   <style>
@@ -268,7 +395,7 @@ input.class_time{
 
 .progress-bar-vertical {
   width: 35px;
-  min-height: 286px;
+  min-height: 100%;
   margin-right: 20px;
   border-radius: 10px !important;
   display: flex;
@@ -367,8 +494,6 @@ input.class_time{
 
 <body>
 
-  <p>Test Vue.js</p>
-
   <div id="app" style="width:100%;">
     <div>
       <table style="width:70%;float: left; " class="cal_table">
@@ -392,30 +517,44 @@ input.class_time{
       </table>
       <table style="width:30%;float: right; ">
         <tr>
-          <td>
-            <div>
-              최대근무가능H:
-              <br>
-              소정근로시간:
-              <br>
-              1주차 권장진도율 40H:
-              <br>
-              누적근무설정시간 27:
-            </div>
+          <td id="myTable1" style="text-align: right; vertical-align: text-top; font-size: small">
+            <div id="myTitle0" style="position: relative; left: 0px; top: -10px">0H</div>
+            <div id="myTitle1" style="position: relative; left: 0px; top: -10px">{{ workTitle[0] }}</div>
+            <div id="myTitle2" style="position: relative; left: 0px; top: -10px">{{ workTitle[1] }}</div>
+            <div id="myTitle3" style="position: relative; left: 0px; top: -10px">{{ workTitle[2] }}</div>
+            <div id="myTitle4" style="position: relative; left: 0px; top: -10px">최대근무가능H: {{ work_hours.monthMax }}H</div>
+</td>
+<td style="border-spacing: 0px; padding: 0px;">
+  <table style="border: 0px; padding: 0px; border-spacing: 0px; display: none">
+    <tr style="height: 100px; border: 0px; padding: 0px">
+      <td style="width: 10px; background-color: gray; border-bottom: 1px; padding: 0px"></td>
+    </tr>
+    <tr style="height: 100px; border: 0px; padding: 0px">
+      <td style="background-color: red; border: 0px; padding: 0px"></td>
+    </tr>
+    <tr style="height: 100px; border: 0px; padding: 0px">
+      <td style="background-color: yellow; border: 0px; padding: 0px"></td>
+    </tr>
+    <tr style="height: 100px; border: 0px; padding: 0px">
+      <td style="background-color: green; border: 0px; padding: 0px"></td>
+    </tr>
+  </table>
+</td>
+<td id="myTable2">
 
-
-<div style="height: 300px;">
-  <div class="progress progress-bar-vertical">
-    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0"
-      aria-valuemax="100" style="height: 30%;">
+<div id="myGT" style="height: 400px;">
+  <div id="myGround" class="progress progress-bar-vertical">
+    <div id="myG1" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+      aria-valuemax="100" v-bind:style="{height: myHeight1 + '%', 'background-color': barColor[0]}"
+      >
       <span class="sr-only">60% Complete</span>
     </div>
-    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="10" aria-valuemin="0"
-      aria-valuemax="100" style="height: 10%;">
+    <div id="myG2" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="10" aria-valuemin="0"
+      aria-valuemax="100" v-bind:style="{height: myHeight2 + '%', 'background-color': barColor[1]}">
       <span class="sr-only">10% Complete</span>
     </div>
-    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-      style="height: 20%;">
+    <div id="myG3" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+      v-bind:style="{height: myHeight3 + '%', 'background-color': barColor[2]}">
       <span class="sr-only">20% Complete</span>
     </div>
   </div>
@@ -560,6 +699,17 @@ input.class_time{
       </div>
     </div>
     </div>
+      <div style="float: unset">
+        {{ myHeight }}
+        <button v-on:click="changeHeight(10)">하하</button>
+        <button v-on:click="changeHeight(-10)">하하</button>
+        {{ work_rate  }}
+        {{ title1() }}
+        {{ myHeight1 }}
+        {{ myHeight2 }}
+        {{ myHeight3 }}
+        {{ myHeight4 }}
+      </div>
   </div>
 </body>
 

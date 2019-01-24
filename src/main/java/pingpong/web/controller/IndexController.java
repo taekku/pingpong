@@ -49,5 +49,20 @@ public class IndexController {
     retVal.addObject("message", "Hello my boys!");
     return retVal;
   }
-  
+
+  @RequestMapping(value = "/googlechart", method = RequestMethod.GET)
+  public ModelAndView googleChart() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("googlechart");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
+
+  @RequestMapping(value = "/testVueComponent", method = RequestMethod.GET)
+  public ModelAndView testVueComponent() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("testVueComponent");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
 }
