@@ -45,7 +45,6 @@ $(document).ready(function () {
 <body>
   <div id="my-gaugedd">
     <my-gauge title0="myTitle" myvalue='123'>
-      ㅁㄴㅇㄹ
     </my-gauge>
   </div>
 </body>

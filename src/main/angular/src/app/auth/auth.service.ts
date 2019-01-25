@@ -6,7 +6,9 @@ import { IUser } from './user';
 })
 export class AuthService {
 
-  constructor() { }
+
+  constructor() {
+  }
 
   public getUser(login_id:string):IUser{
     const user: IUser={
@@ -16,5 +18,12 @@ export class AuthService {
       fullName: 'Taekgu Lim'
     }
     return user;
+  }
+
+  get maxLoginIdLength():number {
+    return 5;
+  }
+  get minLoginIdLength():number {
+    return 5;
   }
 }

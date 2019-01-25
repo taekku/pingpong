@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
+import { passwordValidator } from './validators/login.validator';
+import { AuthService } from '../auth.service';
+import { _MatAutocompleteMixinBase } from '@angular/material';
 export interface Tile {
   color: string;
   cols: number;
@@ -17,28 +20,35 @@ export interface Action {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm = this.fb.group({
-    loginId: [null, Validators.required],
-    password: [null, Validators.required]
-  });
+  loginForm: FormGroup;
+  get f():{[key:string]: AbstractControl} {
+    return this.loginForm.controls;
+  }
+  
   actions = [{
     icon: 'input',
     text: 'Login',
     style: 'raise'
   }];
+  
+  constructor(private fb: FormBuilder,
+    private _auth: AuthService) { 
 
-  tiles: Tile[] = [
-    { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
-    { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
-    { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-    { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
-  ];
-  constructor(private fb: FormBuilder) { }
+  }
+  get auth(){
+    return this._auth;
+  }
 
   ngOnInit() {
+     this.loginForm = this.fb.group({
+       loginId: [null, [Validators.required,
+      ]],
+       password: [null, [Validators.required, passwordValidator]]
+     });
   }
 
   login(){
+    console.log('I do Login!');
     console.log(this.loginForm.value);
   }
   doNothing(){

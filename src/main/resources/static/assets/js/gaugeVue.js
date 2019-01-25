@@ -1,5 +1,6 @@
 Vue.component('my-gauge', {
   template: `
+  Hi
   <div "height:400px">
       <table style="width: 300px; height: 100%">
         <tr>
@@ -50,7 +51,6 @@ Vue.component('my-gauge', {
 
         </tr>
       </table>
-      <button v-on:click="draw_table()">그리기</button>
   </div>
   `,
   props: { 

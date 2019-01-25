@@ -213,13 +213,13 @@
               this.work_hours.myWork = this.work_hours.monthMax;
             this.calRate();
 
-            //this.draw_title();
-            var delayInMilliseconds = 500; // 0.5 second
-            var drawFunc = this.draw_title;
+            // //this.draw_title();
+            // var delayInMilliseconds = 500; // 0.5 second
+            // var drawFunc = this.draw_title;
 
-            setTimeout( function(){
-              drawFunc();
-            }, delayInMilliseconds);
+            // setTimeout( function(){
+            //   drawFunc();
+            // }, delayInMilliseconds);
 
           },
           calRate: function(){
@@ -241,7 +241,7 @@
             sortable.sort(function (a, b) {
               return a[1] - b[1];
             });
-            console.log(sortable);
+            // console.log(sortable);
             this.myHeight1 = sortable[0][1];
             this.myHeight2 = sortable[1][1] - this.myHeight1;
             this.myHeight3 = sortable[2][1] - this.myHeight2 - this.myHeight1;
@@ -255,7 +255,7 @@
             this.barColor[1] = this.work_color[sortable[1][0]];
             this.barColor[2] = this.work_color[sortable[2][0]];
 
-            console.log(this.workTitle);
+            // console.log(this.workTitle);
 
 
             var delayInMilliseconds = 500; // 0.5 second
@@ -710,7 +710,7 @@ input.class_time{
         <table>
           <tr>
             <td>
-              여기에 설명이 죽있으면 좋겠습니다.
+              여기에 설명이 있으면 좋겠습니다.
             </td>
           </tr>
         </table>
@@ -726,7 +726,7 @@ input.class_time{
           <button v-on:click="changeWorkHour(0, 10, 0)">권장진도율 +10H </button>
           <button v-on:click="changeWorkHour(0, -10, 0)">권장진도율 -10H </button>
 <br/>
-          <button v-on:click="changeWorkHour(0, 0, 10)"> 소정근로시간 +10H </button>
+          <button v-on:click="changeWorkHour(0, 0, 10)"> 소정근로시간 +10H </button>
           <button v-on:click="changeWorkHour(0, 0, -10)"> 소정근로시간 -10H </button>
       </div>
   </div>
