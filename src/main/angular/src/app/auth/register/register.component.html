@@ -1,3 +1,12 @@
 <form [formGroup]="addressForm">
-  
+  <mat-grid-list cols="3" rowHeight="4rem">
+    <mat-grid-tile *ngFor="let fc of myConfig">
+      <mat-form-field class="full-width col" color="primary" hideRequiredMarker="false" hintLabel="도움말은?">
+        <input matInput [placeholder]="fc.name" type="text" [formControlName]="fc.name">
+        <mat-error *ngIf="!isValid">
+          {{ fc.name }}
+        </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
 </form>

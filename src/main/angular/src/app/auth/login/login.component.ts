@@ -10,9 +10,9 @@ export interface Tile {
   text: string;
 }
 export interface Action {
-  style: string,
-  icon: string,
-  text: string
+  style: string;
+  icon: string;
+  text: string;
 }
 @Component({
   selector: 'pp-login',
@@ -21,21 +21,21 @@ export interface Action {
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  get f():{[key:string]: AbstractControl} {
+  get f(): {[key: string]: AbstractControl} {
     return this.loginForm.controls;
   }
-  
+
   actions = [{
     icon: 'input',
     text: 'Login',
     style: 'raise'
   }];
-  
+
   constructor(private fb: FormBuilder,
-    private _auth: AuthService) { 
+    private _auth: AuthService) {
 
   }
-  get auth(){
+  get auth() {
     return this._auth;
   }
 
@@ -47,16 +47,16 @@ export class LoginComponent implements OnInit {
      });
   }
 
-  login(){
+  login() {
     console.log('I do Login!');
     console.log(this.loginForm.value);
   }
-  doNothing(){
-    console.log("do Nothing...");
+  doNothing() {
+    console.log('do Nothing...');
   }
-  doAction(action:Action){
-    switch(action.text){
-      case "Login": this.login(); break;
+  doAction(action: Action) {
+    switch (action.text) {
+      case 'Login': this.login(); break;
       default: this.doNothing(); break;
     }
   }
