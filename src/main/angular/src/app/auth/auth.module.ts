@@ -24,6 +24,6 @@ import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCa
     LoginComponent
   ]
 })
-export class AuthModule { 
+export class AuthModule {
 
 }
