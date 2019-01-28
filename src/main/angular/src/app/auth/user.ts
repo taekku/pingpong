@@ -1,8 +1,8 @@
-import { isUndefined } from "util";
+import { isUndefined } from 'util';
 
-export interface IUser{
-  id: number,
-  login_id: string,
-  name: string,
-  fullName: string
+export interface IUser {
+  id: number;
+  login_id: string;
+  name: string;
+  fullName: string;
 }

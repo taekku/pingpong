@@ -19,7 +19,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     MatMenuModule,
   ]
 })
-export class myMaterialModule {
+export class MyMaterialModule {
   constructor(overlayContainer: OverlayContainer) {
     // overlayContainer.getContainerElement().classList.add('my-theme');
     // overlayContainer.getContainerElement().classList.add('my-second-theme');

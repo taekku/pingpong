@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
-import { myMaterialModule } from '../my-material/my-material.module';
+import { MyMaterialModule } from '../my-material/my-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChildComponent } from './child/child.component';
 import { RegisterComponent } from './register/register.component';
@@ -13,7 +13,7 @@ import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCa
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    myMaterialModule,
+    MyMaterialModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

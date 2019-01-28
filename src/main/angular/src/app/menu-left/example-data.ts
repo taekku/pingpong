@@ -12,7 +12,7 @@ export const files = [
             name: 'cdk',
             type: 'folder',
             children: [
-              { name: 'package.json', type: 'file', url:'abc' },
+              { name: 'package.json', type: 'file', url: 'abc' },
               { name: 'BUILD.bazel', type: 'file', url: 'abc' },
             ]
           },
