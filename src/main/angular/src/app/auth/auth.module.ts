@@ -5,23 +5,23 @@ import { MyMaterialModule } from '../my-material/my-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChildComponent } from './child/child.component';
 import { RegisterComponent } from './register/register.component';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule } from '@angular/material';
+import { PpModule } from '../pp/pp.module';
 
 @NgModule({
-  declarations: [LoginComponent, ChildComponent, RegisterComponent],
+  declarations: [
+    LoginComponent,
+    ChildComponent,
+    RegisterComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
     MyMaterialModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatCardModule
+    PpModule
   ],
   exports: [
-    LoginComponent
+    LoginComponent, ChildComponent, RegisterComponent
   ]
 })
 export class AuthModule {

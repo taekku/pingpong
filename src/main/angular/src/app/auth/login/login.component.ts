@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { passwordValidator } from './validators/login.validator';
 import { AuthService } from '../auth.service';
 import { _MatAutocompleteMixinBase } from '@angular/material';
+import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
+import { IUser } from '../user';
 export interface Tile {
   color: string;
   cols: number;
@@ -21,8 +23,8 @@ export interface Action {
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  get f(): {[key: string]: AbstractControl} {
-    return this.loginForm.controls;
+  get f(): FormGroup {
+    return this.loginForm;
   }
 
   actions = [{
@@ -42,14 +44,19 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
      this.loginForm = this.fb.group({
        loginId: [null, [Validators.required,
+         Validators.minLength(5),
+         Validators.maxLength(7)
       ]],
-       password: [null, [Validators.required, passwordValidator]]
+       password: [null, [Validators.required,
+         Validators.minLength(8),
+        //  passwordValidator
+        ]]
      });
   }
 
   login() {
-    console.log('I do Login!');
-    console.log(this.loginForm.value);
+    const user: IUser = this._auth.login(this.loginForm.value);
+    console.log(user);
   }
   doNothing() {
     console.log('do Nothing...');
@@ -58,6 +65,52 @@ export class LoginComponent implements OnInit {
     switch (action.text) {
       case 'Login': this.login(); break;
       default: this.doNothing(); break;
+    }
+  }
+  getControlName( control: FormControl ) {
+    let controlName = null;
+    const parent = control.parent;
+    if ( parent instanceof FormGroup ) {
+      Object.keys(parent.controls).forEach((key: string) => {
+        if ( control === parent.controls[key] ) {
+          controlName = key;
+        }
+      });
+    }
+    return controlName;
+  }
+  getError( control: FormControl ) {
+    if ( control.errors ) {
+      const err = control.errors;
+      let key: string;
+      let val: any;
+      let message: string;
+      for (const k in err) {
+        if (err.hasOwnProperty(k)) {
+          key = k;
+          val = err[k];
+          break;
+        }
+      }
+      switch ( key ) {
+        case 'required':
+          message = '필수입력입니다.';
+          break;
+        case 'passwordPattern':
+          message = '비밀번호는 대소문자, 영숫자 포함 8글자 이상입니다.';
+          break;
+        case 'minlength':
+          message = '최소 ' + val.requiredLength + '를 입력하세요.' ;
+          break;
+        case 'maxlength':
+          message = '최대 ' + val.requiredLength + '까지 가능합니다.(' + val.actualLength + ')';
+          break;
+        default:
+          console.log('Error:' + key);
+          console.log(val);
+          break;
+      }
+      return message;
     }
   }
 }

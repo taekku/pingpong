@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 
 import { RegisterComponent } from './register.component';
+import { MyMaterialModule } from 'src/app/my-material/my-material.module';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -26,6 +27,7 @@ describe('RegisterComponent', () => {
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
+        MyMaterialModule
       ]
     }).compileComponents();
   }));

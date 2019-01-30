@@ -15,15 +15,14 @@ export class AuthService {
       id: 0,
       login_id: 'taekgu',
       name: 'Taekgu',
-      fullName: 'Taekgu Lim'
+      fullName: 'Taekgu Lim',
+      token: 'myToken'
     };
+    console.log('Login Id:' + login_id);
     return user;
   }
-
-  get maxLoginIdLength(): number {
-    return 5;
-  }
-  get minLoginIdLength(): number {
-    return 5;
+  public login(val: { loginId: string, password: string } ): IUser {
+    console.log(val);
+    return this.getUser(val.loginId);
   }
 }

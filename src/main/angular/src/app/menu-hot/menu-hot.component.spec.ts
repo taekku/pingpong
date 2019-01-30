@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuHotComponent } from './menu-hot.component';
+import { MyMaterialModule } from '../my-material/my-material.module';
 
 describe('MenuHotComponent', () => {
   let component: MenuHotComponent;
@@ -8,7 +9,10 @@ describe('MenuHotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuHotComponent ]
+      declarations: [ MenuHotComponent ],
+      imports: [
+        MyMaterialModule
+      ]
     })
     .compileComponents();
   }));

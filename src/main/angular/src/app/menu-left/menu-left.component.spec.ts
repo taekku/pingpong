@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule, MatIconModule, MatTreeModule } from '@angular/material';
 
 import { MenuLeftComponent } from './menu-left.component';
+import { MyMaterialModule } from '../my-material/my-material.module';
+import { RouterModule } from '@angular/router';
 
 describe('MenuLeftComponent', () => {
   let component: MenuLeftComponent;
@@ -11,9 +13,8 @@ describe('MenuLeftComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MenuLeftComponent ],
       imports: [
-        MatButtonModule,
-        MatIconModule,
-        MatTreeModule,
+        MyMaterialModule,
+        RouterModule
       ]
     }).compileComponents();
   }));

@@ -6,21 +6,34 @@ import { MyMaterialModule } from './my-material/my-material.module';
 import { MenuHotComponent } from './menu-hot/menu-hot.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { MatSelect, MatCard, MatCardModule, MatSelectModule } from '@angular/material';
+import { PpModule } from './pp/pp.module';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        AuthModule,
-        MyMaterialModule,
-        MatCardModule,
-        MatSelectModule
-      ],
       declarations: [
         AppComponent,
+        HomeComponent,
         MenuHotComponent,
         MenuLeftComponent,
+      ],
+      imports: [
+        AppRoutingModule,
+        BrowserModule,
+        CommonModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+
+        MyMaterialModule,
+        AuthModule
       ],
     }).compileComponents();
   }));

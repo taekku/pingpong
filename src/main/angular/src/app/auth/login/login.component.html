@@ -2,31 +2,23 @@
 <form [formGroup]="loginForm">
 
   <mat-form-field class="full-width">
-      <input matInput placeholder="Login ID" minlength="{{auth.minLoginIdLength}}" maxlength="8" formControlName="loginId">
-      <mat-error *ngIf="f.loginId.errors?.required">
-        로그인 아이디를 입력하세요.
-      </mat-error>
-      <mat-error *ngIf="f.loginId.errors?.minlength">
-        로그인아이디는 최소 {{ f.loginId.errors.minlength.requiredLength }}글자입니다.
-      </mat-error>
-      <mat-error *ngIf="f.loginId.errors?.maxlength">
-        로그인아이디는 최대 {{ f.loginId.errors.maxlength.requiredLength }}글자입니다.
+      <input matInput placeholder="Login ID" formControlName="loginId">
+      <mat-error *ngIf="f.get('loginId').errors">
+        {{ getError(f.get('loginId')) }}
       </mat-error>
   </mat-form-field>
   
   <mat-form-field class="full-width">
       <input matInput placeholder="Password" type="password" formControlName="password">
-      <mat-error *ngIf="loginForm.get('password').errors?.required">
-        비밀번호를 입력하세요.
-      </mat-error>
-      <mat-error *ngIf="loginForm.get('password').errors?.passwordPattern">
-        비밀번호Pattern을 확인하세요.
+      <mat-error *ngIf="loginForm.get('password').errors">
+        {{ getError(loginForm.get('password') ) }}
       </mat-error>
 
   </mat-form-field>
   <br/>
   <button mat-raised-button color="primary" *ngFor="let action of actions"
     (click)="doAction(action)"
+    [disabled]="!loginForm.valid"
     type="submit">
     <mat-icon *ngIf="action.icon">{{ action.icon }}</mat-icon>
     <span> {{ action.text }} </span>
