@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { IUser } from './auth/user';
+import { AuthService } from './auth/auth.service';
 
 
 
@@ -13,8 +15,13 @@ export class AppComponent implements OnInit {
   themes = ['my-theme', 'my-second-theme'];
   title = 'angular';
 
-  constructor(private overlayContainer: OverlayContainer) {
+  constructor(private overlayContainer: OverlayContainer,
+    private _auth: AuthService
+    ) {
 
+  }
+  get loginUser(): IUser {
+    return this._auth.loginUser();
   }
   ngOnInit() {
     this.overlayContainer.getContainerElement().classList.add(this.theme);

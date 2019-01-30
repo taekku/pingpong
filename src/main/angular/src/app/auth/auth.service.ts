@@ -6,11 +6,13 @@ import { IUser } from './user';
 })
 export class AuthService {
 
+  private user: IUser;
 
   constructor() {
+    this.user = null;
   }
 
-  public getUser(login_id: string): IUser {
+  private getUser(login_id: string): IUser {
     const user: IUser = {
       id: 0,
       login_id: 'taekgu',
@@ -21,8 +23,13 @@ export class AuthService {
     console.log('Login Id:' + login_id);
     return user;
   }
-  public login(val: { loginId: string, password: string } ): IUser {
+  public login(val: { loginId: string, password: string } ): boolean {
     console.log(val);
-    return this.getUser(val.loginId);
+    this.user = this.getUser(val.loginId);
+    return true;
+  }
+  public loginUser(): IUser {
+    const myUser = this.user;
+    return myUser;
   }
 }

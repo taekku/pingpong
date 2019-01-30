@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private _auth: AuthService) {
-
   }
   get auth() {
     return this._auth;
@@ -55,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const user: IUser = this._auth.login(this.loginForm.value);
-    console.log(user);
+    this._auth.login(this.loginForm.value);
+    console.log(this._auth.loginUser);
   }
   doNothing() {
     console.log('do Nothing...');
