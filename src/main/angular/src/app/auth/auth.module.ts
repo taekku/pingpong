@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChildComponent } from './child/child.component';
 import { RegisterComponent } from './register/register.component';
 import { PpModule } from '../pp/pp.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,9 @@ import { PpModule } from '../pp/pp.module';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+
+    HttpClientModule,
+
     MyMaterialModule,
     PpModule
   ],

@@ -36,6 +36,7 @@ public class PingpongApplication extends SpringBootServletInitializer {
   //       characterEncodingFilter.setForceEncoding(true);
   //       return characterEncodingFilter;
   // }
+  
 	public static void main(String[] args) {
         SpringApplication.run(PingpongApplication.class, args);
         System.out.println("OK Start Now");

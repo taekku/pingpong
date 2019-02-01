@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { IUser, User, BaseUser } from './user';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '../config/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private user: User;
+  private _user?: User;
 
-  constructor() {
-    this.user = null;
+  constructor(private http: HttpClient, private config: ConfigService) {
   }
 
   private getUser(login_id: string): User {
     const user: IUser = {
       id: 0,
-      login_id: 'taekgu',
-      name: 'Taekgu',
-      fullName: 'Taekgu Lim',
+      login_id: login_id,
+      name: 'Taekgu' + login_id,
+      fullName: 'Taekgu Lim' + login_id,
       token: 'myToken'
     };
     console.log('Login Id:' + login_id);
@@ -25,10 +26,13 @@ export class AuthService {
   }
   public login(val: { loginId: string, password: string } ): boolean {
     console.log(val);
-    this.user = this.getUser(val.loginId);
+    this._user = this.getUser(val.loginId);
     return true;
   }
-  public loginUser(): User {
-    return this.user;
+  public myUser(): User {
+    return this._user;
+  }
+  get user(): User {
+    return this._user;
   }
 }

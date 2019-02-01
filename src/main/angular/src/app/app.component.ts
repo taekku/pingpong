@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   }
   get loginUser(): User {
-    return this._auth.loginUser();
+    return this._auth.myUser();
   }
   ngOnInit() {
     this.overlayContainer.getContainerElement().classList.add(this.theme);

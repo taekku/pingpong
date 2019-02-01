@@ -42,7 +42,17 @@
       "type": "java",
       "name": "Debug (Launch)-PingpongApplication<Pingpong>",
       "request": "launch",
+      "mainClass": "pingpong.main.PingpongApplication"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PingpongApplication<demo>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
       "mainClass": "pingpong.main.PingpongApplication",
+      "projectName": "demo",
+      "args": ""
     }
   ]
 }

@@ -55,7 +55,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     this._auth.login(this.loginForm.value);
-    console.log(this._auth.loginUser);
+    // .subscribe(()=>{
+      // console.log("user is logged in");
+      // this.router.navigateByUrl('/');
+    // });
+    console.log(this._auth.myUser());
   }
   doNothing() {
     console.log('do Nothing...');

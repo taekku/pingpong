@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { HomeComponent } from './home/home.component';
 import { MenuHotComponent } from './menu-hot/menu-hot.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { MenuHotComponent } from './menu-hot/menu-hot.component';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+
+    // HttpClientModule,
 
     MyMaterialModule,
     AuthModule
