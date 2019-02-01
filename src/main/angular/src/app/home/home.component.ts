@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   public doJob() {
     if ( this._auth.loginUser ) {
-      this._auth.loginUser().name = 'asf';
+      // this._auth.loginUser().name = 'asf';
     }
   }
 }

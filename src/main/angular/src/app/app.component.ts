@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { IUser } from './auth/user';
+import { User } from './auth/user';
 import { AuthService } from './auth/auth.service';
 
 
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     ) {
 
   }
-  get loginUser(): IUser {
+  get loginUser(): User {
     return this._auth.loginUser();
   }
   ngOnInit() {

@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { IUser } from './user';
+import { IUser, User, BaseUser } from './user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private user: IUser;
+  private user: User;
 
   constructor() {
     this.user = null;
   }
 
-  private getUser(login_id: string): IUser {
+  private getUser(login_id: string): User {
     const user: IUser = {
       id: 0,
       login_id: 'taekgu',
@@ -21,15 +21,14 @@ export class AuthService {
       token: 'myToken'
     };
     console.log('Login Id:' + login_id);
-    return user;
+    return new BaseUser(user);
   }
   public login(val: { loginId: string, password: string } ): boolean {
     console.log(val);
     this.user = this.getUser(val.loginId);
     return true;
   }
-  public loginUser(): IUser {
-    const myUser = this.user;
-    return myUser;
+  public loginUser(): User {
+    return this.user;
   }
 }
