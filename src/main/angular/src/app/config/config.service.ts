@@ -19,4 +19,13 @@ export class ConfigService {
     // return this.http.get(this.configUrl); // , param: { search: 'mySearch' });
     return this.http.post(this.configUrl, { search: 'mySearch' });
   }
+
+  getLoginUrl() {
+    let config = this.getConfig();
+    let url;
+    config.subscribe(
+      (data: Config) => url = data.loginUrl
+    );
+    return url;
+  }
 }

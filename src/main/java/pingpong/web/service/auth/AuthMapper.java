@@ -10,7 +10,7 @@ import pingpong.web.db.common.dao.AbstractDAO;
 
 
 @Repository("authMapper")
-class AuthMapper extends AbstractDAO {
+public class AuthMapper extends AbstractDAO {
   
   public List<Map<String, Object>> getUser(String login_id) {
     HashMap<String, Object> param = new HashMap<String, Object>();

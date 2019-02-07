@@ -4,6 +4,6 @@
   <select id="getUser" parameterType="hashmap" resultType="hashmap">
     select *
     from frm_user a
-    where login_id = #login_id
+    where login_id = #{login_id}
   </select>
 </mapper>

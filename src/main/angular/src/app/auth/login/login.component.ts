@@ -27,11 +27,18 @@ export class LoginComponent implements OnInit {
     return this.loginForm;
   }
 
-  actions = [{
-    icon: 'input',
-    text: 'Login',
-    style: 'raise'
-  }];
+  actions = [
+    {
+      icon: 'input',
+      text: 'Login',
+      style: 'raise'
+    },
+    {
+      icon: 'input',
+      text: 'Logout',
+      style: 'raise'
+    }
+  ];
 
   constructor(private fb: FormBuilder,
     private _auth: AuthService) {
@@ -82,6 +89,10 @@ export class LoginComponent implements OnInit {
     }
     return controlName;
   }
+  /**
+   *
+   * @param control Input Control
+   */
   getError( control: FormControl ) {
     if ( control.errors ) {
       const err = control.errors;
