@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { MyMaterialModule } from '../my-material/my-material.module';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,6 +14,7 @@ describe('HomeComponent', () => {
       declarations: [ HomeComponent ],
       imports: [
         CommonModule,
+        HttpClientModule,
         MyMaterialModule
       ]
     })

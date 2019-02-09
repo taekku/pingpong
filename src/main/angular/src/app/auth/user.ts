@@ -6,7 +6,7 @@ export interface IUser {
   name: string;
   firstName?: string;
   lastName?: string;
-  fullName: string;
+  fullName?: string;
   token?: string;
 }
 

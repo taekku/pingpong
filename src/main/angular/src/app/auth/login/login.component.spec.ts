@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthModule } from '../auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,6 +25,9 @@ describe('LoginComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+
+        HttpClientModule,
+
         MyMaterialModule,
         PpModule,
         // AuthModule
