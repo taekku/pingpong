@@ -21,7 +21,7 @@ export class ConfigService {
   }
 
   getLoginUrl() {
-    let config = this.getConfig();
+    const config = this.getConfig();
     let url;
     config.subscribe(
       (data: Config) => url = data.loginUrl

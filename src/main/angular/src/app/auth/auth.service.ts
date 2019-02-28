@@ -55,7 +55,7 @@ export class AuthService {
         return user;
       }));
   }
-  
+
   public login2(val: { loginId: string, password: string } ): boolean {
     if ( !this._config ) {
       console.log('Wow:');

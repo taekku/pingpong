@@ -65,4 +65,12 @@ public class IndexController {
     retVal.addObject("message", "Hello my boys!");
     return retVal;
   }
+
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public ModelAndView testJsp() {
+    ModelAndView retVal = new ModelAndView();
+    retVal.setViewName("test");
+    retVal.addObject("message", "Hello my boys!");
+    return retVal;
+  }
 }
