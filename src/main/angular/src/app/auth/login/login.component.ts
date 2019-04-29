@@ -61,7 +61,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._auth.login(this.loginForm.value);
+    const myUser = this._auth.login(this.loginForm.controls['loginId'].value, this.loginForm.controls['password'].value);
+
+    console.log(myUser);
     // .subscribe(()=>{
       // console.log("user is logged in");
       // this.router.navigateByUrl('/');

@@ -21,7 +21,7 @@ class LoginController {
   @Autowired
   private AuthService authService;
 
-  @RequestMapping(value = "/auth/login", method = RequestMethod.GET)
+  @RequestMapping(value = "/auth/login1", method = RequestMethod.GET)
   public Map<String, Object> login(
       HttpServletRequest request, HttpSession session, HttpServletResponse response,
       @RequestBody Map<String, Object> params) {

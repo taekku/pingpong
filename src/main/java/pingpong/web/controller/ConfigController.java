@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value="/config")
 class ConfigController {
 
-  @RequestMapping(value = "/auth/**" )
+  @RequestMapping(value = "/auth/**", method={RequestMethod.GET, RequestMethod.POST})
   public Map<String, Object> authConfig(    
       HttpServletRequest request, HttpSession session, HttpServletResponse response
       , @RequestBody Map<String, Object> params

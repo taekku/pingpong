@@ -43,8 +43,16 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
+    console.log(username + ':' + password);
+    console.log('getLogin:' + this.configService.loginUrl);
+    this.configService.getLoginUrl();
+    console.log('outLogin:' + this.configService.loginUrl);
+    // console.log(this.user);
+    // return this.getUser(username);
+    // console.log('URL:' + this.configService.getLoginUrl());
+    /* return this.http.post<any>(this.configService.getLoginUrl() + '/users/authenticate', { username, password })
       .pipe(map(user => {
+        console.log(user);
         // login successful if there's a jwt token in the response
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -53,21 +61,21 @@ export class AuthService {
         }
 
         return user;
-      }));
+      })); */
   }
 
   public login2(val: { loginId: string, password: string } ): boolean {
-    if ( !this._config ) {
-      console.log('Wow:');
-      this.configService.getConfig()
-        .subscribe(
-          (data: Config) => this._config = { ...data }, // success path
-          error => this._error = error // error path
-        );
-    }
-    console.log(val);
-    console.log(this._config);
-    console.log(this.configService.getLoginUrl());
+    // if ( !this._config ) {
+    //   console.log('Wow:');
+    //   this.configService.getConfig()
+    //     .subscribe(
+    //       (data: Config) => this._config = { ...data }, // success path
+    //       error => this._error = error // error path
+    //     );
+    // }
+    // console.log(val);
+    // console.log(this._config);
+    // console.log(this.configService.getLoginUrl());
     this._user = this.getUser(val.loginId);
     return true;
   }

@@ -12,6 +12,8 @@ import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { HomeComponent } from './home/home.component';
 import { MenuHotComponent } from './menu-hot/menu-hot.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
 
     MyMaterialModule,
-    AuthModule
+    AuthModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
