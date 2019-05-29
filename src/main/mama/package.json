@@ -1,0 +1,25 @@
+{
+  "name": "mama",
+  "version": "1.0.0",
+  "description": "Mama's Library",
+  "main": "mama.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mama",
+    "javascript",
+    "library"
+  ],
+  "author": "Lim, Taekgu",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
+  }
+}
