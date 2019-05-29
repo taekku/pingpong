@@ -5,22 +5,22 @@
   "main": "pingpong.js",
   "scripts": {
     "test": "node_modules/.bin/jasmine-ts",
-    "build": "node_modules/.bin/webpack"
+    "build": "node_modules/.bin/webpack --config webpack.config.js"
   },
   "author": "Taekgu Lim",
   "license": "ISC",
   "devDependencies": {
-    "@types/jasmine": "^3.3.4",
+    "@types/jasmine": "^3.3.12",
     "@types/jquery": "^3.3.29",
-    "jasmine": "^3.3.1",
+    "jasmine": "^3.4.0",
     "jasmine-ts": "^0.3.0",
-    "jest": "^23.6.0",
-    "jquery": "^3.2.1",
-    "ts-loader": "^5.3.1",
+    "jest": "^24.8.0",
+    "jquery": "^3.4.1",
+    "ts-loader": "^5.4.5",
     "ts-node": "^7.0.1",
-    "typescript": "^3.2.2",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "typescript": "^3.4.5",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
   },
   "dependencies": {}
 }

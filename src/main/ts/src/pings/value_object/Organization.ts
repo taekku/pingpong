@@ -2,7 +2,7 @@
  * Organization Tree를 관리하려고 함.
  * class Organization is used for jquery.orgchart
  */
-interface IOrganization {
+export interface IOrganization {
   line: string;
   oid?: number;
   pid?: number;
