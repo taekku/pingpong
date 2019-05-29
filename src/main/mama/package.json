@@ -1,10 +1,12 @@
 {
   "name": "mama",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Mama's Library",
   "main": "mama.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "build1": "./node_modules/.bin/babel src --out-dir lib",
+    "build": "babel src --out-dir lib",
+    "start": "node ./lib/mama.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,7 +14,11 @@
     "javascript",
     "library"
   ],
-  "author": "Lim, Taekgu",
+  "author": {
+    "name": "Lim, Taekgu",
+    "email": "taekgu@gmail.com",
+    "url": "https://www.taekgu.xyz"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
