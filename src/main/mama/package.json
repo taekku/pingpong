@@ -4,8 +4,7 @@
   "description": "Mama's Library",
   "main": "mama.js",
   "scripts": {
-    "build1": "./node_modules/.bin/babel src --out-dir lib",
-    "build": "babel src --out-dir lib",
+    "build": "babel src -w --out-dir lib",
     "start": "node ./lib/mama.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
