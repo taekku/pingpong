@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { SELECT_PANEL_INDENT_PADDING_X } from '@angular/material/select';
 
 export interface Config {
   loginUrl: string;
