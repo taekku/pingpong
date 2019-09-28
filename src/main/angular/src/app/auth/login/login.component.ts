@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { passwordValidator } from './validators/login.validator';
 import { AuthService } from '../auth.service';
-import { _MatAutocompleteMixinBase } from '@angular/material';
-import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
 import { IUser } from '../user';
 export interface Tile {
   color: string;
