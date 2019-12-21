@@ -7,16 +7,11 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  myConfig = [{
-    name: 'company',
-  },
-  {
-    name: 'firstName',
-  },
-  {
-    name: 'lastName',
-  }
-];
+  myConfig = [
+        { name: 'company',  },
+        { name: 'firstName', },
+        { name: 'lastName',  }
+    ];
   addressForm = this.fb.group({
     company: null,
     firstName: [null, Validators.required],
